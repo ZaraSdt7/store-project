@@ -1,6 +1,7 @@
 const express=require("express");
 const {default:mongoose}=require("mongoose");
 const path=require("path");
+const { AllRouter } = require("./router/router");
 
 module.exports=class Application{
     #app=express();
@@ -34,7 +35,7 @@ mongoose.connect(this.#DB_URL,(error)=>{
 })
 }
 CreateRouter(){
-
+this.#app.use(AllRouter);
 }
 ErrorHandeling(){
 this.#app.use((req,res,next)=>{
