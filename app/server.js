@@ -1,5 +1,7 @@
 const express=require("express");
 const {default:mongoose}=require("mongoose");
+const createerror=require("http-errors");
+const morgan = require("morgan");
 const path=require("path");
 const { AllRouter } = require("./router/router");
 
@@ -18,6 +20,7 @@ constructor(PORT,DB_URL){
 
 }
 ConfigApplication(){
+this.#app.use(morgan("dev"));
 this.#app.use(express.json());
 this.#app.use(express.urlencoded({extended:true}));
 this.#app.use(express.static(path.join(__dirname,"..","public")));
@@ -33,23 +36,34 @@ mongoose.connect(this.#DB_URL,(error)=>{
     if(!error) return console.log("connect to DB");
     return console.log("connect faild to DB");
 })
+mongoose.connection.on("connected",()=>{
+    console.log("mongoose connected to DB");
+})
+mongoose.connection.on("disconnected",()=>{
+    console.log("mongoose disconnected to DB");
+})
+process.on("SIGINT",async()=>{
+    await mongoose.connection.close();
+    process.exit(0);
+})
 }
 CreateRouter(){
 this.#app.use(AllRouter);
 }
 ErrorHandeling(){
 this.#app.use((req,res,next)=>{
-    return res.status(404).json({
-        statuscode:404,
-        message:"address not found it!"
-    })
+   next(createerror.NotFound("Page Not Found"))
 })
-this.#app.use((req,res,next)=>{
-    const StatusCode=error.status || 500;
-    const message=error.message || "Internal Server Error"
+this.#app.use((error,req,res,next)=>{
+    const servererror=createerror.InternalServerError();
+    const StatusCode=error.status || servererror.status;
+    const message=error.message || servererror.message
     return res.status(StatusCode).json({
-        StatusCode,
-        message
+        errors:{
+            StatusCode,
+             message
+        }
+        
     })
 })
 }
