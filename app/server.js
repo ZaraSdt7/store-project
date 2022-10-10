@@ -3,7 +3,10 @@ const {default:mongoose}=require("mongoose");
 const createerror=require("http-errors");
 const morgan = require("morgan");
 const path=require("path");
+const swaggerUI=require("swagger-ui-express");
+const swaggerJSDoc = require("swagger-jsdoc");
 const { AllRouter } = require("./router/router");
+const { url } = require("inspector");
 
 module.exports=class Application{
     #app=express();
@@ -24,6 +27,26 @@ this.#app.use(morgan("dev"));
 this.#app.use(express.json());
 this.#app.use(express.urlencoded({extended:true}));
 this.#app.use(express.static(path.join(__dirname,"..","public")));
+this.#app.use("/api-doc",swaggerUI.serve,swaggerUI.setup(swaggerJSDoc({
+    swaggerDefinition:{
+        info:{
+          title:"projet store",
+          version:"2.0.0",
+          description:"the first project store",
+          contact:{
+            name:"zahra",
+            url:"https://github.com/ZahraSdt7",
+            email:"zahra.st7373@gmail.com"
+          }  
+        },
+        servers:[
+            {
+            url:"http://localhost:8000"
+            }
+    ]
+    },
+    apis:["./app/router/*/*.js"]
+})))
 }
 CreateServer(){
 const http=require("http");
