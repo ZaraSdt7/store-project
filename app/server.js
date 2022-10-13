@@ -45,7 +45,7 @@ this.#app.use("/api-doc",swaggerUI.serve,swaggerUI.setup(swaggerJSDoc({
             }
     ]
     },
-    apis:["./app/router/*/*.js"]
+    apis:["./app/router/**/*.js"]
 })))
 }
 CreateServer(){
