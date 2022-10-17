@@ -8,26 +8,54 @@ const router=require("express").Router();
  */
 /**
  * @swagger
- *  /user/login:
+ *   /user/get-otp:
  *      post:
- *          tags: [User_Athentication]
- *          summary: login user in userpanel with phonenumber
- *          description: one time password(OTP)login
- *          parameters: 
- *          -   name: mobile
- *               description: fa-IRI phonenumber
- *               in: formData
- *               required: true
- *               type: string
- *           responses:
- *                  200:    
- *                      description: Sucsess
- *                  404:
- *                      description: Bad Request
- *                  500:
- *                      description: Internal Server Error
+ *        tags: [User_Athentication]
+ *        summary: login user in userpanel with phonenumber
+ *        description: one time password(OTP)login
+ *        parameters: 
+ *        -  name: mobile
+ *           description: fa-IRI phonenumber
+ *           in: formData
+ *           required: true
+ *           type: string
+ *        responses:
+ *                200:    
+ *                  description: Sucsess
+ *                404:
+ *                  description: Bad Request
+ *                500:
+ *                  description: Internal Server Error
  */
-router.post("/login",UserAuthController.login)
+router.post("/get-otp",UserAuthController.GetOtp)
+/**
+ * @swagger
+ *   /user/check-otp:
+ *      post:
+ *        tags: [UserAuthController]
+ *        summary: check-otp value in user controller
+ *        description: check-otp with code-mobile and expires date
+ *        parameters:
+ *        -    name: mobile
+ *             description: fa-IRI phonenumber
+ *             in: formData
+ *             required: true
+ *             type: string
+ *        -    name: code
+ *             description: enter sms code
+ *             in: formData
+ *             required: true
+ *             type: string
+ *        responses:
+ *                200:
+ *                  description:  success
+ *                404:
+ *                  description:  Bad Request
+ *                500:        
+ *                  description: InternalServerError
+ *              
+ */
+router.post("/check-otp",UserAuthController.CheckOtp)
 module.exports={
     UserAuthRouter:router
 }
