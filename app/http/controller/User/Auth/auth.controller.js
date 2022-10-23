@@ -36,7 +36,7 @@ const user=await UserModel.findOne({mobile});
 if(!user) throw createerror.NotFound("کاربر یافت نشد");
 if(user.otp.code!=code) throw createerror.Unauthorized("کد ارسال شده صحیح نیست");
 const nowdate=Date.now();
-if(+user.otp.expiresIn < nowdate) throw createerror.Unauthorized("کد شما منقضی شده است");
+if(+ user.otp.expiresIn < nowdate) throw createerror.Unauthorized("کد شما منقضی شده است");
 const accesstoken=await SignAccessToken(user._id);
 return res.json({
     data:{accesstoken

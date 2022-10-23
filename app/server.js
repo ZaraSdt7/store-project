@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const path=require("path");
 const swaggerUI=require("swagger-ui-express");
 const swaggerJSDoc = require("swagger-jsdoc");
+const cors=require("cors");
 const { AllRouter } = require("./router/router");
 const { url } = require("inspector");
 
@@ -23,6 +24,7 @@ constructor(PORT,DB_URL){
 
 }
 ConfigApplication(){
+this.#app.use(cors());    
 this.#app.use(morgan("dev"));
 this.#app.use(express.json());
 this.#app.use(express.urlencoded({extended:true}));
