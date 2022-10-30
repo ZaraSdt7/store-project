@@ -2,18 +2,10 @@ const { extend, object } = require("@hapi/joi");
 const keys = require("@hapi/joi/lib/types/keys");
 const createerror = require("http-errors");
 const { EXPIRES_IN, USER_ROLE } = require("../../../../utils/constans");
-const {
-  PhoneNumberGenerator,
-  SignAccessToken,
-  VerifyRefreshToken,
-  SignAccessRefrshToken,
-} = require("../../../../utils/function");
+const { PhoneNumberGenerator,SignAccessToken,VerifyRefreshToken,SignAccessRefrshToken,} =require("../../../../utils/function");
 const users = require("../../../models/users");
 const { UserModel } = require("../../../models/users");
-const {
-  CheckOtpSchema,
-  GetOtpSchema,
-} = require("../../../validations/user/auth.Schema");
+const { CheckOtpSchema, GetOtpSchema,} = require("../../../validations/user/auth.Schema");
 const Controller = require("../../controller");
 class UserAuthController extends Controller {
   async GetOtp(req, res, next) {
@@ -41,16 +33,15 @@ class UserAuthController extends Controller {
       const { mobile, code } = req.body;
       const user = await UserModel.findOne({ mobile });
       if (!user) throw createerror.NotFound("کاربر یافت نشد");
-      if (user.otp.code != code)
-        throw createerror.Unauthorized("کد ارسال شده صحیح نیست");
+      if (user.otp.code != code) throw createerror.Unauthorized("کد ارسال شده صحیح نیست");
       const nowdate = Date.now();
-      if (+user.otp.expiresIn < nowdate)
-        throw createerror.Unauthorized("کد شما منقضی شده است");
+      if (+user.otp.expiresIn < nowdate) throw createerror.Unauthorized("کد شما منقضی شده است");
       const accesstoken = await SignAccessToken(user._id);
       const refreshToken = await SignAccessRefrshToken(user._id);
       return res.json({
         data: { accesstoken, 
-          refreshToken 
+          refreshToken ,
+          
         }
       });
     } catch (error) {
@@ -67,7 +58,8 @@ class UserAuthController extends Controller {
       return res.json({
         data: {
           accesstoken,
-          newRefreshToken
+          newRefreshToken,
+          
         }
       });
     } catch (error) {
@@ -77,7 +69,7 @@ class UserAuthController extends Controller {
   async SaveUser(mobile, code) {
     let otp = {
       code,
-      expiresIn: EXPIRES_IN,
+      expiresIn: EXPIRES_IN
     };
     const result = await this.CheckLogin(mobile);
     if (result) {
@@ -86,7 +78,7 @@ class UserAuthController extends Controller {
     return !!(await UserModel.create({
       mobile,
       otp,
-      Roles: [USER_ROLE],
+      Roles: [USER_ROLE]
     }));
   }
   async CheckLogin(mobile) {

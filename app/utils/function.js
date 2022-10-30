@@ -43,7 +43,8 @@ function VerifyRefreshToken(token) {
       const { mobile } = payload || {};
       const user = await UserModel.findOne({ mobile }, { password: 0, otp: 0 });
       if (!user) reject(createerror.Unauthorized("حساب کاربری یافت نشد"));
-      resolve(mobile);
+      ///if (token === user) return resolve(mobile);
+     resolve(mobile);
     });
   });
 }

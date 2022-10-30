@@ -12,7 +12,7 @@ const router = require("express").Router();
  * @swagger
  *   /user/get-otp:
  *      post:
- *        tags: [User_Athentication]
+ *        tags: [User-Athentication]
  *        summary: login user in userpanel with phonenumber
  *        description: one time password(OTP)login
  *        parameters:
@@ -34,7 +34,7 @@ router.post("/get-otp", UserAuthController.GetOtp);
  * @swagger
  *   /user/check-otp:
  *      post:
- *        tags: [UserAuthController]
+ *        tags: [User-AuthController]
  *        summary: check-otp value in user controller
  *        description: check-otp with code-mobile and expires date
  *        parameters:
@@ -62,7 +62,7 @@ router.post("/check-otp", UserAuthController.CheckOtp);
  * @swagger
  *   /user/refresh-token:
  *      post:
- *          tags: [UserAuthController]
+ *          tags: [User-AuthController]
  *          summary: send refresh token for get new token and refreshtoken
  *          description: refresh token
  *          parameters:

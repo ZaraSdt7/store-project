@@ -3,7 +3,7 @@ const Schema=new mongoose.Schema({
 frist_name:{type:String},
 last_name:{type:String},
 user_name:{type:String,lowercase:true},
-mobile:{type:String,required:true},
+mobile:{type:String,required:true,unique:true},
 email:{type:String,lowercase:true},
 password:{type:String},
 otp:{type:Object,default:{ //A one-time password
