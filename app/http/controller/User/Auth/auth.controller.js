@@ -54,11 +54,11 @@ class UserAuthController extends Controller {
       const mobile = await VerifyRefreshToken(RefreshToken);
       const user = await UserModel.findOne({ mobile });
       const accesstoken = await SignAccessToken(user._id);
-      const newRefreshToken = await SignAccessRefrshToken(user._id);
+      const newrefeshtoken = await SignAccessRefrshToken(user._id);
       return res.json({
         data: {
           accesstoken,
-          newRefreshToken,
+          RefreshToken:newrefeshtoken
           
         }
       });
@@ -69,7 +69,7 @@ class UserAuthController extends Controller {
   async SaveUser(mobile, code) {
     let otp = {
       code,
-      expiresIn: EXPIRES_IN
+      expiresIn: (new Date().getTime()+ 120000),
     };
     const result = await this.CheckLogin(mobile);
     if (result) {

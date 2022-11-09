@@ -2,10 +2,10 @@ const express=require("express");
 const {default:mongoose}=require("mongoose");
 const createerror=require("http-errors");
 const morgan = require("morgan");
-const path=require("path");
+const path= require("path");
 const swaggerUI=require("swagger-ui-express");
 const swaggerJSDoc = require("swagger-jsdoc");
-const cors=require("cors");
+const Cors = require("cors");
 const { AllRouter } = require("./router/router");
 const { url } = require("inspector");
 
@@ -17,6 +17,7 @@ constructor(PORT,DB_URL){
     this.#DB_URL=DB_URL;
     this.#PORT=PORT;
     this.ConfigApplication();
+    this.initRedis();
     this.ConnectToMongoDB();
     this.CreateServer();
     this.CreateRouter();
@@ -24,7 +25,7 @@ constructor(PORT,DB_URL){
 
 }
 ConfigApplication(){
-this.#app.use(cors());    
+this.#app.use(Cors({origin:"*"}));    
 this.#app.use(morgan("dev"));
 this.#app.use(express.json());
 this.#app.use(express.urlencoded({extended:true}));
@@ -71,6 +72,9 @@ process.on("SIGINT",async()=>{
     await mongoose.connection.close();
     process.exit(0);
 })
+}
+initRedis(){
+    require("./utils/init_redis")
 }
 CreateRouter(){
 this.#app.use(AllRouter);
