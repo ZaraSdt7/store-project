@@ -3,7 +3,7 @@ const createerror = require("http-errors");
 const { UserModel } = require("../http/models/users");
 const { ACCESS_TOKEN_SECRET_KEYS, ACCESS_REFRESH_TOKEN_KEY } = require("./constans");
 const RedisClient = require("./init_redis");
-
+const { string } = require("@hapi/joi");
 //const { token } = require("morgan");
 function PhoneNumberGenerator() {
   return Math.floor(Math.random() * 90000 + 10000);
@@ -27,14 +27,14 @@ function SignAccessRefrshToken(userId) {
   return new Promise(async (resolve, reject) => {
     const user = await UserModel.findById(userId);
     const payload = {
-      mobile: user.mobile
+      mobile: user.mobile,
     };
     const options = {
       expiresIn: "1y"
     };
     JWT.sign(payload, ACCESS_REFRESH_TOKEN_KEY, options,async(err, token) => {
       if (err) reject(createerror.InternalServerError("خطای سرور"));
-      await RedisClient.SETEX(userId,(365*24*60*60),token);
+      await RedisClient.SETEX(String(userId),(365*24*60*60),token);
       resolve(token);
     });
   });
@@ -46,10 +46,11 @@ function VerifyRefreshToken(token) {
       const { mobile } = payload || {};
       const user = await UserModel.findOne({ mobile }, { password: 0, otp: 0 });
       if (!user) reject(createerror.Unauthorized("حساب کاربری یافت نشد"));
-      const refreshToken=await RedisClient.get(user._id);
+      const refreshToken=await RedisClient.get(String(user?._id));
+      if (!refreshToken) reject(createerror.Unauthorized("ورود مجدد به حسابی کاربری انجام نشد"))
       if(token === refreshToken) return resolve(mobile);
       reject (createerror.Unauthorized("ورود به حساب کاربری انجام نشد"))
-    });
+    })
   });
 }
 

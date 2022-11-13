@@ -1,6 +1,7 @@
 const RedisClient = require("../utils/init_redis");
 const { HomeRouter } = require("./Api");
 const { UserAuthRouter } = require("./User/auth");
+const { DeveloperRoutes } = require("./User/develope");
 (async()=>{
     await RedisClient.set("key","value")
     const value=await RedisClient.get("key");
@@ -8,6 +9,7 @@ const { UserAuthRouter } = require("./User/auth");
 })();
 const router=require("express").Router();
 router.use("/user",UserAuthRouter)
+router.use("/developer",DeveloperRoutes)
 router.use("/",HomeRouter)
 module.exports={
     AllRouter:router
