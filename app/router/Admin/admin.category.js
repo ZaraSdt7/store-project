@@ -1,5 +1,4 @@
 const { CategoryRoutes } = require("./category");
-
 const router=require("express").Router();
 
 /**
@@ -9,7 +8,7 @@ const router=require("express").Router();
  *     description: action admin
  */
 
-router.post("/category",CategoryRoutes)
+router.use("/category",CategoryRoutes)
 module.exports={
     AdminCategoryRoutes:router
 }

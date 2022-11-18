@@ -66,13 +66,13 @@ router.post("/check-otp", UserAuthController.CheckOtp);
  *          summary: send refresh token for get new token and refreshtoken
  *          description: refresh token
  *          parameters:
- *          -    in: formData
- *               required: true
- *               type: string
- *               name: refreshToken
+ *              -   in: formData
+ *                  required: true
+ *                  type: string
+ *                  name: refreshToken
  *          responses:
  *                  200:
- *                    description: success
+ *                      description: success
  */
 router.post("/refresh-token", UserAuthController.RefreshToken);
 module.exports = {

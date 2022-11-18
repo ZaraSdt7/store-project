@@ -1,5 +1,4 @@
 const { CategoryController } = require("../../http/controller/Admin/category");
-
 const router=require("express").Router();
 /**
  * @swagger
@@ -14,11 +13,11 @@ const router=require("express").Router();
  *                  name: title
  *             -    in: formData
  *                  type: string
- *                  required: true
+ *                  required: false
  *                  name: parents
  *          responses:
  *                  201:  
- *                  description: success
+ *                      description: success
  */
 
 router.post("/add",CategoryController.AddCategory)

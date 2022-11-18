@@ -1,6 +1,6 @@
+const { PhoneNumberGenerator } = require("../../utils/function");
 const router=require("express").Router();
 const bcrypt=require("bcrypt");
-const { PhoneNumberGenerator } = require("../../utils/function");
 //const { models } = require("mongoose");
 /**
  * @swagger
@@ -39,7 +39,7 @@ router.get("/password-hash/:password",(req,res,next)=>{
  *          summary: get random number
  *          responses:
  *                  200:
- *                  description: success    
+ *                      description: success    
  *  
  */
 router.get("/random-number",(req,res,next)=>{
