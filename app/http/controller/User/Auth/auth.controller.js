@@ -40,8 +40,7 @@ class UserAuthController extends Controller {
       const refreshToken = await SignAccessRefrshToken(user._id);
       return res.json({
         data: { accesstoken, 
-          refreshToken ,
-         
+          refreshToken       
         }
       });
     } catch (error) {
@@ -58,9 +57,7 @@ class UserAuthController extends Controller {
       return res.json({
         data: {
           accesstoken,
-          RefreshToken:newrefeshtoken,
-        
-          
+          RefreshToken:newrefeshtoken,   
         }
       });
     } catch (error) {
