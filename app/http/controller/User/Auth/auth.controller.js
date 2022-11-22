@@ -37,10 +37,11 @@ class UserAuthController extends Controller {
       const nowdate = Date.now();
       if (+user.otp.expiresIn < nowdate) throw createerror.Unauthorized("کد شما منقضی شده است");
       const accesstoken = await SignAccessToken(user._id);
-      const refreshToken = await SignAccessRefrshToken(user._id);
+      const RefreshToken = await SignAccessRefrshToken(user._id);
+      user.save();
       return res.json({
         data: { accesstoken, 
-          refreshToken       
+          RefreshToken       
         }
       });
     } catch (error) {
@@ -51,13 +52,15 @@ class UserAuthController extends Controller {
     try {
       const { RefreshToken } = req.body;
       const mobile = await VerifyRefreshToken(RefreshToken);
-      const user = await UserModel.findOne({ mobile });
-      const accesstoken = await SignAccessToken(user._id);
-      const newrefeshtoken = await SignAccessRefrshToken(user._id);
+      const user = await UserModel.findOne({ mobile },{RefreshToken});
+      const accesstoken = await SignAccessToken(user._id,RefreshToken);
+      const newrefeshtoken = await SignAccessRefrshToken(user._id,RefreshToken);
+      user.save();
       return res.json({
         data: {
           accesstoken,
-          RefreshToken:newrefeshtoken,   
+          RefreshToken:newrefeshtoken,
+          user   
         }
       });
     } catch (error) {

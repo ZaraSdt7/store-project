@@ -23,11 +23,13 @@ function SignAccessToken(userId) {
     });
   });
 }
-function SignAccessRefrshToken(userId) {
-  return new Promise(async (resolve, reject) => {
-    const user = await UserModel.findById(userId);
+ async function SignAccessRefrshToken(userId,RefreshToken) {
+  return await new Promise(async (resolve, reject) => {
+    const user = await UserModel.findById({_id:userId});
+    const updateRefrestoken=await UserModel.updateOne({_id:userId},{RefreshToken})
     const payload = {
       mobile: user.mobile,
+      RefreshToken:updateRefrestoken.RefreshToken
     };
     const options = {
       expiresIn: "1y"
@@ -39,12 +41,12 @@ function SignAccessRefrshToken(userId) {
     });
   });
 }
-function VerifyRefreshToken(token) {
-  return new Promise((resolve, reject) => {
+async function VerifyRefreshToken(token) {
+  return await  new Promise((resolve, reject) => {
     JWT.verify(token, ACCESS_REFRESH_TOKEN_KEY, async (err, payload) => {
       if (err) reject(createerror.Unauthorized("وارد حساب کاربری خودشوید"));
       const { mobile } = payload || {};
-      const user = await UserModel.findOne({ mobile }, { password: 0, otp: 0 });
+      const user = await UserModel.findOne({ mobile},{ password: 0, otp: 0 });
       if (!user) reject(createerror.Unauthorized("حساب کاربری یافت نشد"));
       const refreshToken=await RedisClient.get(String(user?._id));
       if (!refreshToken) reject(createerror.Unauthorized("ورود مجدد به حسابی کاربری انجام نشد"))

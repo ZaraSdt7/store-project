@@ -14,6 +14,8 @@ otp:{type:Object,default:{ //A one-time password
 bills:{type:[],default:[]},
 discount:{type:Number,default:0},
 brithday:{type:String},
+accesstoken:{type:String,default:''},
+RefreshToken:{type:String,default:''},
 Roles:{type:[String],default:["USER"]}    
 })
 module.exports={

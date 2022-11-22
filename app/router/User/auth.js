@@ -60,7 +60,7 @@ router.post("/get-otp", UserAuthController.GetOtp);
 router.post("/check-otp", UserAuthController.CheckOtp);
 /**
  * @swagger
- *   /user/refresh-token:
+ *   /user/Refresh-token:
  *      post:
  *          tags: [User-AuthController]
  *          summary: send refresh token for get new token and refreshtoken
@@ -69,12 +69,12 @@ router.post("/check-otp", UserAuthController.CheckOtp);
  *              -   in: formData
  *                  required: true
  *                  type: string
- *                  name: refreshToken
+ *                  name: RefreshToken
  *          responses:
  *                  200:
- *                      description: success
+ *                       description: success
  */
-router.post("/refresh-token", UserAuthController.RefreshToken);
+router.post("/Refresh-token", UserAuthController.RefreshToken);
 module.exports = {
   UserAuthRouter: router,
 };
