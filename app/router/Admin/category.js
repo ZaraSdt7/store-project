@@ -13,7 +13,7 @@ const router = require("express").Router();
  *                  name: title
  *             -    in: formData
  *                  type: string
- *                  required: false
+ *                  required: true
  *                  name: parents
  *          responses:
  *                  201:
@@ -23,7 +23,7 @@ const router = require("express").Router();
 router.post("/add", CategoryController.AddCategory);
 /**
  * @swagger
- *  /admin/category/parents:
+ *  /admin/category/parent:
  *        get:
  *          tags: [Admin-Panel]
  *          summary: get all parents of categories head
@@ -32,24 +32,24 @@ router.post("/add", CategoryController.AddCategory);
  *                      description: success
  */
 
-router.get("/parents", CategoryController.getAllParents);
+router.get("/parent", CategoryController.getAllParents);
 /**
  * @swagger
- *  /admin/category/children/{parents}:
+ *  /admin/category/children/{parent}:
  *          get:
- *          tags: [Admin-Panel]
- *          summary: get all parents of categories
- *          parameters:
- *              -    in: path
- *                   name: children
- *                   type: string
- *                   required: true
- *          responses:
- *                  200:
- *                      description: success
+ *             tags: [Admin-Panel]
+ *             summary: get all parent of categories
+ *             parameters:
+ *                -    in: path
+ *                     name: parent
+ *                     type: string
+ *                     required: true
+ *             responses:
+ *                      200:
+ *                         description: success
  */
 
-router.get("/children/:parents", CategoryController.getChildrenOfParents);
+router.get("/children/:parent", CategoryController.getChildrenOfParents);
 /**
  * @swagger
  *  /admin/category/all:
@@ -80,6 +80,22 @@ router.get("/all", CategoryController.getAllCategory);
  */
 
 router.delete("/remove/:id", CategoryController.RemoveCategory);
+/**
+ * @swagger
+ *  /admin/category/{id}:
+ *        get:
+ *             tags: [Admin-Panel]
+ *             summary: find categories with object-id
+ *             parameters:
+ *                -    in: path
+ *                     name: id
+ *                     type: string
+ *                     required: true
+ *             responses:
+ *                     200:
+ *                      description: success
+ */
+router.get("/:id",CategoryController.getCategoryById);
 module.exports = {
   CategoryRoutes: router,
 };
