@@ -11,7 +11,6 @@ class CategoryController extends Controller {
       const { title, parent } = req.body;
       const category = await CategoryModel.create({ title, parent });
       if (!category) throw createerror.InternalServerError("خطای داخلی");
-      category.save();
       return res.status(201).json({
         data: {
           statusCode: 201,
@@ -74,7 +73,7 @@ const category=await CategoryModel.aggregate([
     $graphLookup:{
       from: "categories",
       startWith:"$_id",
-      connectFromField:"id",
+      connectFromField:"_id",
       connectToField:"parent",
       maxDepth:5,
       depthField:"depth",
@@ -92,8 +91,6 @@ const category=await CategoryModel.aggregate([
    }
   }
   ]) 
-
-
 return res.status(200).json({
   data:{
     statusCode:200,

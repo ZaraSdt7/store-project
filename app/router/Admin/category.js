@@ -13,8 +13,8 @@ const router = require("express").Router();
  *                  name: title
  *             -    in: formData
  *                  type: string
- *                  required: true
- *                  name: parents
+ *                  required: false
+ *                  name: parent
  *          responses:
  *                  201:
  *                      description: success
