@@ -24,10 +24,10 @@ class CategoryController extends Controller {
 
 async getAllParents(req,res,next){
 try {
-const parents=await CategoryModel.find({parent:undefined});
+const parent=await CategoryModel.find({parent:undefined});
 return res.status(200).json({
  data:{
-  parents
+  parent
  } 
 })
 } catch (error) {
