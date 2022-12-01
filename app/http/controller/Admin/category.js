@@ -1,5 +1,5 @@
 const { CategoryModel } = require("../../models/categories");
-const { categorySchema } = require("../../validations/admin/category.schema");
+const { categorySchema, UpdateCategorySchema } = require("../../validations/admin/category.schema");
 const createerror = require("http-errors");
 const mongoose=require("mongoose");
 const Controller = require("../controller");
@@ -24,7 +24,7 @@ class CategoryController extends Controller {
 
 async getAllParents(req,res,next){
 try {
-const parents=await CategoryModel.find({parent:undefined},{__v:0});
+const parents=await CategoryModel.find({parent:undefined});
 return res.status(200).json({
  data:{
   parents
@@ -38,10 +38,10 @@ return res.status(200).json({
 async getChildrenOfParents(req,res,next){
 try {
 const {parent}=req.params;
-const children=await CategoryModel.find({parent},{__v:0,parent:0});
+const children=await CategoryModel.find({parent:new mongoose.Types.ObjectId(parent)})
 return res.status(200).json({
   data:{
-    children
+  children
   }
 })  
 } catch (error) {
@@ -68,33 +68,34 @@ try {
 // }
 //])
 
-const category=await CategoryModel.aggregate([
-  {
-    $graphLookup:{
-      from: "categories",
-      startWith:"$_id",
-      connectFromField:"_id",
-      connectToField:"parent",
-      maxDepth:5,
-      depthField:"depth",
-      as: "children"
-    },
-  },
-  {
-    $project: {
-      __v:0
-    }
-  },
-  {
-   $match:{
-    parent:undefined
-   }
-  }
-  ]) 
+// const categories=await CategoryModel.aggregate([
+//   {
+//     $graphLookup:{
+//       from: "categories",
+//       startWith:"$_id",
+//       connectFromField:"_id",
+//       connectToField:"parent",
+//       maxDepth:5,
+//       depthField:"depth",
+//       as: "children"
+//     },
+//   },
+//   {
+//     $project: {
+//       __v:0
+//     }
+//   },
+//   {
+//    $match:{
+//     parent:undefined
+//    }
+//   }
+//   ]) 
+const categories=await CategoryModel.find({parent:undefined});
 return res.status(200).json({
   data:{
     statusCode:200,
-    category
+    categories
   }
 }) 
 
@@ -103,6 +104,47 @@ return res.status(200).json({
 }
 
 }
+async getAllCategoryWithoutPopulate(req,res,next){
+  try {
+  const category=await CategoryModel.aggregate([
+    {
+      $match: {}
+    }
+  ]);
+  return res.status(200).json({
+    data:{
+      statusCode:200,
+      category
+    }
+  })
+} catch (error) {
+   next(error) 
+  }
+}
+
+async UpdateCategories(req,res,next){
+  try {
+  const {id}=req.params;
+  const {title}=req.body;
+  await UpdateCategorySchema.validateAsync(req.body);
+  const categoryID=await this.ExistCategory(id);
+  const updateresult=await CategoryModel.updateOne({_id:id},{$set:{title}});
+  if(updateresult.modifiedCount == 0) throw createerror.InternalServerError("بروز رسانی انجام نشد");
+  return res.status(200).json({
+    data:{
+      statusCode:200,
+      message:"بروز رسانی انجام شد"
+    }
+  })  
+  } catch (error) {
+    next(error)
+  }
+}
+
+
+
+
+
 
 async RemoveCategory(req,res,next){
   try {
@@ -134,7 +176,10 @@ try {
 const {id:_id}=req.params;
 const category=await CategoryModel.aggregate([
   {
-    $match:{_id:mongoose.Types.ObjectId(_id)},
+    $match:{
+
+      _id:mongoose.Types.ObjectId(_id)
+    }
   },
   {
     $lookup:{
