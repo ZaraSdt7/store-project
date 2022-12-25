@@ -10,6 +10,13 @@ const router=require("express").Router();
  *        get:
  *          tags: [Blog(Admin-Panel)]
  *          summary: get all blogs
+ *          parameters:
+ *            -    in: header
+ *                 example: Bearer token ...
+ *                 value: Bearer
+ *                 name: access-token
+ *                 type: string
+ *                 required: true
  *          responses:
  *                  200:
  *                      description: success-get array of blogs
@@ -26,6 +33,12 @@ router.get("/",BlogController.GetListOfBlog)
  *            - multipart/form-data
  *            - application/x-www-form-data-urlencoded
  *        parameters:
+ *            -    in: header
+ *                 example: Bearer token ...
+ *                 value: Bearer
+ *                 name: access-token
+ *                 type: string
+ *                 required: true
  *            -    in: formData
  *                 name: title
  *                 type: string

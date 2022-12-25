@@ -1,6 +1,8 @@
 const JWT = require("jsonwebtoken");
 const createerror = require("http-errors");
 const { UserModel } = require("../http/models/users");
+const path=require("path");
+const fs=require("fs");
 const { ACCESS_TOKEN_SECRET_KEYS, ACCESS_REFRESH_TOKEN_KEY } = require("./constans");
 const RedisClient = require("./init_redis");
 const { string } = require("@hapi/joi");
@@ -55,10 +57,15 @@ async function VerifyRefreshToken(token) {
     })
   });
 }
+function DeleteFileInPublic(fileAddress){
+const FilePath=path.join(__dirname,"..","..","public",fileAddress)
+fs.mkdirSync(FilePath)
+}
 
 module.exports = {
   PhoneNumberGenerator,
   SignAccessToken,
   SignAccessRefrshToken,
   VerifyRefreshToken,
+  DeleteFileInPublic
 };
