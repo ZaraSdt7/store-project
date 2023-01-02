@@ -17,7 +17,13 @@ brithday:{type:String},
 accesstoken:{type:String,default:''},
 RefreshToken:{type:String,default:''},
 Roles:{type:[String],default:["USER"]}    
-})
+},
+{
+    timestamps : true,
+    toJSON : {
+        virtuals : true
+    }
+});
 module.exports={
     UserModel:mongoose.model("user",Schema)
 }

@@ -13,7 +13,6 @@ class UserAuthController extends Controller {
       await GetOtpSchema.validateAsync(req.body);
       const { mobile } = req.body;
       const code = PhoneNumberGenerator();
-      console.log(code);
       const result = await this.SaveUser(mobile, code);
       if (!result) throw createerror.Unauthorized("ورود شما انجام نشد");
       return res.status(200).send({

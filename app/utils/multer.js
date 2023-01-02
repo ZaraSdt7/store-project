@@ -17,21 +17,26 @@ return directory
 
 const storage=multer.diskStorage({
     destination:(req,file,cb)=>{
+    if(file?.originalname){
     const filePath=CreateMulter(req);
-    cb(null,filePath);
+    return cb(null,filePath);
+    }    
+    cb(null,null)
     },
     filename:(req,file,cb)=>{
+    if(file.originalname){
     const ext=path.extname(file.originalname);
-    const image=req.body.image(/\\/g,"/");
     const fileName=String(new Date().getTime() + ext)
     req.body.filename=fileName;
-    cb(null,fileName);    
+    return cb(null,fileName);  
+    }
+    cb(null,null)
     } 
 
     })
     function fileFilter(req,file,cb){
     const ext=path.extname(file.originalname);
-    const mimetype=[".jpg",".jpeg",".gif","webp","png"];
+    const mimetype=[".jpg",".jpeg",".gif",".webp",".png"];
     if(mimetype.includes(ext)){
         return cb(null,true)
     }

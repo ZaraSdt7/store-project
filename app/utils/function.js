@@ -58,8 +58,11 @@ async function VerifyRefreshToken(token) {
   });
 }
 function DeleteFileInPublic(fileAddress){
-const FilePath=path.join(__dirname,"..","..","public",fileAddress)
-fs.mkdirSync(FilePath)
+  if(fileAddress){
+    const FilePath=path.join(__dirname,"..","..","public",fileAddress)
+    if(fs.existsSync(FilePath)) fs.unlinkSync(FilePath)
+  }
+
 }
 
 module.exports = {
