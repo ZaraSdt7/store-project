@@ -76,5 +76,5 @@ router.post("/check-otp", UserAuthController.CheckOtp);
  */
 router.post("/Refresh-token", UserAuthController.RefreshToken);
 module.exports = {
-  UserAuthRouter: router,
+  UserAuthRouter: router
 };

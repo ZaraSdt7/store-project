@@ -14,7 +14,7 @@ const router=require("express").Router();
  *          parameters:
  *            -    in: header
  *                 example: Bearer token ...
- *                 value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTM2MzA5NjE3MCIsImlhdCI6MTY3MjY1Mzg2NSwiZXhwIjoxNjcyNjU3NDY1fQ.IG_ZepHIwbkFIYbhIbmhCKjubTCwXs2bX5hoNJlB9_8
+ *                 value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTM2MzA5NjE3MCIsImlhdCI6MTY3MjgyMTMwOCwiZXhwIjoxNjcyODI0OTA4fQ.-Hu8x8H0sNbKI51md6tzqk9tSR-5h8H6nqcI8QLvnkQ
  *                 name: access-token
  *                 type: string
  *                 required: true
@@ -35,7 +35,7 @@ router.get("/",BlogController.GetListOfBlog)
  *        parameters:
  *            -    in: header
  *                 example: Bearer token ...
- *                 value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTM2MzA5NjE3MCIsImlhdCI6MTY3MjY1Mzg2NSwiZXhwIjoxNjcyNjU3NDY1fQ.IG_ZepHIwbkFIYbhIbmhCKjubTCwXs2bX5hoNJlB9_8
+ *                 value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTM2MzA5NjE3MCIsImlhdCI6MTY3MjgyMTMwOCwiZXhwIjoxNjcyODI0OTA4fQ.-Hu8x8H0sNbKI51md6tzqk9tSR-5h8H6nqcI8QLvnkQ
  *                 name: access-token
  *                 type: string
  *                 required: true
@@ -79,7 +79,7 @@ router.post("/add",uploadFile.single("image"),StringtoArray("tags"),BlogControll
  *        parameters:
  *            -    in: header
  *                 example: Bearer token ...
- *                 value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTM2MzA5NjE3MCIsImlhdCI6MTY3MjY1Mzg2NSwiZXhwIjoxNjcyNjU3NDY1fQ.IG_ZepHIwbkFIYbhIbmhCKjubTCwXs2bX5hoNJlB9_8
+ *                 value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTM2MzA5NjE3MCIsImlhdCI6MTY3MjgyMTMwOCwiZXhwIjoxNjcyODI0OTA4fQ.-Hu8x8H0sNbKI51md6tzqk9tSR-5h8H6nqcI8QLvnkQ
  *                 name: access-token
  *                 type: string
  *                 required: true
@@ -120,7 +120,7 @@ router.patch("/update/:id",uploadFile.single("image"),StringtoArray("tags"),Blog
  *           parameters:
  *            -    in: header
  *                 example: Bearer token ...
- *                 value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTM2MzA5NjE3MCIsImlhdCI6MTY3MjY1Mzg2NSwiZXhwIjoxNjcyNjU3NDY1fQ.IG_ZepHIwbkFIYbhIbmhCKjubTCwXs2bX5hoNJlB9_8
+ *                 value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTM2MzA5NjE3MCIsImlhdCI6MTY3MjgyMTMwOCwiZXhwIjoxNjcyODI0OTA4fQ.-Hu8x8H0sNbKI51md6tzqk9tSR-5h8H6nqcI8QLvnkQ
  *                 name: access-token
  *                 type: string
  *                 required: true
@@ -144,7 +144,7 @@ router.get("/:id",BlogController.GetOneById);
  *           parameters:
  *            -    in: header
  *                 example: Bearer token ...
- *                 value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTM2MzA5NjE3MCIsImlhdCI6MTY3MjY1Mzg2NSwiZXhwIjoxNjcyNjU3NDY1fQ.IG_ZepHIwbkFIYbhIbmhCKjubTCwXs2bX5hoNJlB9_8
+ *                 value: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTM2MzA5NjE3MCIsImlhdCI6MTY3MjgyMTMwOCwiZXhwIjoxNjcyODI0OTA4fQ.-Hu8x8H0sNbKI51md6tzqk9tSR-5h8H6nqcI8QLvnkQ
  *                 name: access-token
  *                 type: string
  *                 required: true

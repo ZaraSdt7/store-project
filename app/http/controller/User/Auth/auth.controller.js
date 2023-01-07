@@ -38,10 +38,13 @@ class UserAuthController extends Controller {
       if (+user.otp.expiresIn < nowdate) throw createerror.Unauthorized("کد شما منقضی شده است");
       const accesstoken = await SignAccessToken(user._id);
       const RefreshToken = await SignAccessRefrshToken(user._id);
-      user.save();
+      user.accesstoken=accesstoken;
+      user.RefreshToken=RefreshToken;
+      await user.save();
       return res.json({
         data: { accesstoken, 
-          RefreshToken       
+          RefreshToken ,
+            
         }
       });
     } catch (error) {
@@ -55,12 +58,14 @@ class UserAuthController extends Controller {
       const user = await UserModel.findOne({ mobile },{RefreshToken});
       const accesstoken = await SignAccessToken(user._id,RefreshToken);
       const newrefeshtoken = await SignAccessRefrshToken(user._id,RefreshToken);
-      user.save();
+      user.accesstoken=accesstoken;
+      user.RefreshToken=RefreshToken;
+      await user.save();
       return res.json({
         data: {
           accesstoken,
           RefreshToken:newrefeshtoken,
-          user   
+          
         }
       });
     } catch (error) {
@@ -68,12 +73,14 @@ class UserAuthController extends Controller {
     }
   }
   async SaveUser(mobile, code) {
+    const now= (new Date().getTime());
     let otp = {
       code,
-      expiresIn: (new Date().getTime()+ 120000),
+      expiresIn: now + 120000,
     };
     const result = await this.CheckLogin(mobile);
     if (result) {
+      console.log(result.otp, now);
       return (await this.UpdateUser(mobile, { otp }));
     }
     return !!(await UserModel.create({
@@ -99,5 +106,5 @@ class UserAuthController extends Controller {
   }
 }
 module.exports = {
-  UserAuthController: new UserAuthController(),
+  UserAuthController: new UserAuthController()
 };

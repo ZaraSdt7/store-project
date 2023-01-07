@@ -135,7 +135,7 @@ async UpdateBlogByID(req,res,next){
     return res.status(200).json({
         data:{
             statusCode:200,
-            message:"بروز رسانی انجام شد"
+            message:"بروز رسانی انجام شد "
         }
     })
     } catch (error) {
