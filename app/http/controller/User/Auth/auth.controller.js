@@ -91,6 +91,7 @@ class UserAuthController extends Controller {
   }
   async CheckLogin(mobile) {
     const user = await UserModel.findOne({ mobile });
+    console.log(user);
     return !!user;
   }
   async UpdateUser(mobile, objectDate = {}) {
