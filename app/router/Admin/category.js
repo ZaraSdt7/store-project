@@ -2,19 +2,35 @@ const { CategoryController } = require("../../http/controller/Admin/category");
 const router = require("express").Router();
 /**
  * @swagger
+ *  components:
+ *      schemas:
+ *          Category:
+ *              type: object
+ *              required:
+ *                  -   title
+ *              properties:
+ *                  title:
+ *                      type: string
+ *                      description: the title of category
+ *                  parent:
+ *                      type: string
+ *                      description: the title of category
+ */
+/**
+ * @swagger
  *  /admin/category/add:
  *        post:
  *          tags: [Category(Admin-Panel)]
  *          summary: create new category title
- *          parameters:
- *             -    in: formData
- *                  type: string
- *                  required: true
- *                  name: title
- *             -    in: formData
- *                  type: string
- *                  required: false
- *                  name: parent
+ *          requestBody:
+ *              required: true
+ *              content:
+ *                  application/x-www-form-urlencoded:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Category'
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Category'
  *          responses:
  *                  201:
  *                      description: success
@@ -120,10 +136,15 @@ router.get("/:id", CategoryController.getCategoryById);
  *                     name: id
  *                     type: string
  *                     required: true
- *                -    in: formData 
- *                     name: title
- *                     type: string
- *                     required: true
+ *             requestBody:
+ *                 required: true
+ *                 content:
+ *                     application/x-www-form-urlencoded:
+ *                         schema:
+ *                             $ref: '#/components/schemas/Category'
+ *                     application/json:
+ *                         schema:
+ *                             $ref: '#/components/schemas/Category'
  *             responses:
  *                     200:
  *                      description: success

@@ -40,7 +40,7 @@ class UserAuthController extends Controller {
       const RefreshToken = await SignAccessRefrshToken(user._id);
       user.accesstoken=accesstoken;
       user.RefreshToken=RefreshToken;
-      await user.save();
+      user.save();
       return res.json({
         data: { accesstoken, 
           RefreshToken ,
@@ -60,7 +60,7 @@ class UserAuthController extends Controller {
       const newrefeshtoken = await SignAccessRefrshToken(user._id,RefreshToken);
       user.accesstoken=accesstoken;
       user.RefreshToken=RefreshToken;
-      await user.save();
+      user.save();
       return res.json({
         data: {
           accesstoken,
@@ -91,7 +91,6 @@ class UserAuthController extends Controller {
   }
   async CheckLogin(mobile) {
     const user = await UserModel.findOne({ mobile });
-    console.log(user);
     return !!user;
   }
   async UpdateUser(mobile, objectDate = {}) {

@@ -32,6 +32,7 @@ this.#app.use(express.urlencoded({extended:true}));
 this.#app.use(express.static(path.join(__dirname,"..","public")));
 this.#app.use("/api-doc",swaggerUI.serve,swaggerUI.setup(swaggerJSDoc({
     swaggerDefinition:{
+        openapi:"3.0.0",
         info:{
           title:"projet store",
           version:"2.0.0",
@@ -44,12 +45,25 @@ this.#app.use("/api-doc",swaggerUI.serve,swaggerUI.setup(swaggerJSDoc({
         },
         servers:[
             {
-            url:"http://localhost:8000"
+            url:"http://localhost:5000"
             }
-    ]
+    ],
+    components:{
+        securitySchemes:{
+        BearerAuth:{
+        type:"http",
+        scheme:"bearer",
+        bearerFormat:"JWT"    
+        }    
+        }
+    },
+    security:[{BearerAuth:[]}]
     },
     apis:["./app/router/**/*.js"]
-})))
+})
+,
+{expelorer:true}
+))
 }
 CreateServer(){
 const http=require("http");
@@ -58,10 +72,12 @@ http.createServer(this.#app).listen(this.#PORT,()=>{
 })
 }
 ConnectToMongoDB(){
+mongoose.set('strictQuery', true);
 mongoose.connect(this.#DB_URL,(error)=>{
     if(!error) return console.log("connect to DB");
     return console.log("connect faild to DB");
 })
+
 mongoose.connection.on("connected",()=>{
     console.log("mongoose connected to DB");
 })
