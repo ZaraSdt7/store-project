@@ -29,9 +29,9 @@ const router = require("express").Router();
  *          RefreshToken:
  *              type: object
  *              required:
- *                  -   refreshToken
+ *                  -   RefreshToken
  *              properties:
- *                  refreshToken:
+ *                  RefreshToken:
  *                      type: string
  *                      description: enter refresh-token for get fresh token and refresh-token
  */
