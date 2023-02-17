@@ -11,7 +11,6 @@ const router=require("express").Router();
  *              required:
  *                 -    title
  *                 -    short_text
- *                 -    tags
  *                 -    category
  *                 -    price
  *                 -    discount
@@ -20,18 +19,15 @@ const router=require("express").Router();
  *                  title:
  *                      type: string
  *                      descrition: the title product
- *                      example: عنوان مسِئله
+ *                      example: عنوان اول
  *                  short_text:
  *                      type: string
  *                      description: the title of product
- *                      example: متن کوتاه شده تستی
+ *                      example: متن اول
  *                  text:
  *                      type: string
  *                      description: the title of product
- *                      example: متن بلد تستی
- *                  tags:
- *                      type: array
- *                      description: the title of product
+ *                      example: متن عنوان اول
  *                  category:
  *                      type: string
  *                      description: the title of product
@@ -39,7 +35,7 @@ const router=require("express").Router();
  *                  price:
  *                      type: string
  *                      description: the title of product
- *                      example: 2500000
+ *                      example: 70000
  *                  discount:
  *                      type: string
  *                      description: the title of product
@@ -48,7 +44,7 @@ const router=require("express").Router();
  *                      type: string
  *                      description: the title of product
  *                      example: 100
- *                  image:
+ *                  images:
  *                      type: array
  *                      items:
  *                          type: string
@@ -78,7 +74,7 @@ const router=require("express").Router();
  * @swagger
  *  /admin/product/add:
  *      post:
- *          tags: [Product(AdminPanel)]
+ *          tags: [Product(Admin-Panel)]
  *          summary: create and save product
  *          requestBody:
  *              required: true
@@ -88,19 +84,19 @@ const router=require("express").Router();
  *                          $ref: '#/components/schemas/product'
  *          
  *          responses:
- *              201:
+ *              200:
  *                  description: created new Product
  *                  content:
  *                      application/json:
  *                          schema:
  *                              $ref: '#/definitions/publicDefinition'
  */
-router.post("/add",uploadFile.single("image"),ProdutController.addProduct);
+router.post("/add",uploadFile.array("images",10),ProdutController.addProduct);
 /**
  * @swagger
  *  /admin/product/list:
  *      get:
- *          tags: [Product(AdminPanel)]
+ *          tags: [Product(Admin-Panel)]
  *          summary: get all products
  *          responses:
  *              200:
