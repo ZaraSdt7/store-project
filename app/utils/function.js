@@ -75,11 +75,44 @@ function ListOfImageForRequest(files,fileUploadPath){
   return []
 }
 }
+function SetFeture(body){
+const{width,height,length,weight}=body;
+let feture ={}
+if (!isNaN(+width) || !isNaN(+height) || !isNaN(+weight) || !isNaN(+length)){
+  if(!width) feture.width = 0
+  else feture.width = +width
+  if(!length) feture.length = 0
+  else feture.length = +length
+  if(!height) feture.height = 0
+  else feture.height = +height
+  if(!weight) feture.weight = 0
+  else feture.weight = +weight
+
+  } 
+  return feture; 
+}
+function CopyObject(object){
+return JSON.parse(JSON.stringify(object))  
+}
+function DeleteInvitedPropertyObject(data={},BlackListFeild=[]){
+  let nullishData=[""," ",0,"0",undefined,null];
+  Object.keys(data).forEach(key=>{{
+  if(BlackListFeild.includes(key)) delete data[key]
+  if(typeof data[key] == "string") data[key]=data[key].trim();
+  if(Array.isArray(data[key]) && data[key].length > 0 ) data[key]=data[key].map(item=>item.trim());
+  if(Array.isArray(data[key]) && data[key].length == 0 ) delete data[key]
+  if(nullishData.includes(data[key])) delete data[key]  
+  }
+})
+}
 module.exports = {
   PhoneNumberGenerator,
   SignAccessToken,
   SignAccessRefrshToken,
   VerifyRefreshToken,
   DeleteFileInPublic,
-  ListOfImageForRequest
+  ListOfImageForRequest,
+  CopyObject,
+  SetFeture,
+  DeleteInvitedPropertyObject
 }

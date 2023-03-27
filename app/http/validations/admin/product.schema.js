@@ -9,6 +9,7 @@ tags:joi.array().min(0).max(10).error(createerror.BadRequest("برچسب نمی 
 category:joi.string().regex(mongoIDpattern).error(createerror.BadRequest("دسته بندی موردنظر یافت نشد")),
 price:joi.number().error(createerror.BadRequest("قیمت وارد شده صحیح نمی باشد")),
 count:joi.number().error(createerror.BadRequest("تعداد وارد شده صحیح نمی باشد")),
+colors: joi.array().min(0).max(20).error(createerror.BadRequest("رنگ های انتخابی  نمیتواند بیشتر از 20 ایتم باشد")),
 discount:joi.number().allow(null,0,"0").error(createerror.BadRequest("تخفیف وارد شده صحیح نمی باشد")),
 weight:joi.number().allow(null,0,"0").error(createerror.BadRequest("وزن وارد شده صحیح نمی باشد")),
 length:joi.number().allow(null,0,"0").error(createerror.BadRequest("طول وارد شده صحیح نمی باشد")),

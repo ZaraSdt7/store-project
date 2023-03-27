@@ -1,6 +1,6 @@
 const {default:mongoose, Mongoose}=require("mongoose");
 const { commentschema } = require("./public.schema");
-const Schema=new mongoose.Schema({
+const productSchema=new mongoose.Schema({
 title:{type:String,required:true},
 short_text:{type:String,required:true},
 text:{type:String,required:true},
@@ -17,7 +17,7 @@ count:{type:Number},
 type:{type:String,required:true}, //virtual,phisycal
 time:{type:String},
 format:{type:String},
-supplier:{type:mongoose.Types.ObjectId,required:true},
+supplier:{type:mongoose.Types.ObjectId,ref:"user",required:true},
 feture:{type:Object,default:{
     length:"",
     height:"",
@@ -33,6 +33,7 @@ feture:{type:Object,default:{
         virtuals: true
     }
 })
+productSchema.index({title:"text",short_text:"text",text:"text"})
 module.exports={
-    ProductModel:mongoose.model("product",Schema)
+    ProductModel:mongoose.model("product",productSchema)
 }
