@@ -77,7 +77,7 @@ function ListOfImageForRequest(files,fileUploadPath){
 }
 function SetFeture(body){
 const{width,height,length,weight}=body;
-let feture ={}
+let feture ={};
 if (!isNaN(+width) || !isNaN(+height) || !isNaN(+weight) || !isNaN(+length)){
   if(!width) feture.width = 0
   else feture.width = +width

@@ -224,10 +224,6 @@ router.delete("/remove/:id",ProdutController.RemoveProductById)
  *          responses:
  *              200:
  *                  description: updated Product
- *                  content:
- *                      application/json:
- *                          schema:
- *                              $ref: '#/definitions/publicDefinition'
  */
 router.patch("/edit/:id",uploadFile.array("images",10),ProdutController.EditProduct);
 module.exports={
