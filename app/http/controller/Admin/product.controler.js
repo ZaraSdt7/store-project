@@ -50,7 +50,7 @@ let data=CopyObject(req.body);
 data.images=ListOfImageForRequest(req?.files||[],req.body.fileUploadPath)
 data.feture=SetFeture(req.body);
 let BlackListFeild=Object.values(ProductBlackList);
-DeleteInvitedPropertyObject=(data,BlackListFeild)
+DeleteInvitedPropertyObject(data,BlackListFeild)
 const EditProduct=await ProductModel.updateOne({_id:product._id},{$set:data});
 if(EditProduct.modifiedCount==0) throw {status:HttpStatus.INTERNAL_SERVER_ERROR, message:"خطای داخلی"}
 return res.status(HttpStatus.OK).json({ 
