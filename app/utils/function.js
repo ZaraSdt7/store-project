@@ -67,10 +67,8 @@ function DeleteFileInPublic(fileAddress){
 
 }
 function ListOfImageForRequest(files,fileUploadPath){
-
-  if(files?.lenght>0){
-    return (files.map(file=>path.join(fileUploadPath,file.filename))).map(item=>item.replace(/\\/g,"/"));
-
+ if(files?.lenght>0){
+  return (files.map(file=>path.join(fileUploadPath,file.filename))).map(item=>item.replace(/\\/g,"/"));
   }else{
   return []
 }

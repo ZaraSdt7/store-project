@@ -1,4 +1,4 @@
-const {default:mongoose, Mongoose}=require("mongoose");
+const {default:mongoose}=require("mongoose");
 const { commentschema } = require("./public.schema");
 const Episodes=new mongoose.Schema({
 title:{type:String,required:true},
@@ -11,26 +11,32 @@ title:{type:String,required:true},
 text:{type:String,required:true,default:""},  
 episod:{type:[Episodes],default:[]}  
 })
-const Schema=new mongoose.Schema({
+const CourseSchema=new mongoose.Schema({
 title:{type:String,required:true},
 short_text:{type:String,required:true},
 text:{type:String,required:true},
 image:{type:String,required:true},
-tag:{type:[String],required:true},
+tags:{type:[String],default:[]},
 category:{type:mongoose.Types.ObjectId,ref:"category",required:true},
 comments:{type:[commentschema],default:[]},
-like:{type:[mongoose.Types.ObjectId],default:[]},
-deslike:{type:[Mongoose.Types.ObjectId],default:[]},
-bookmark:{type:[mongoose.Types.ObjectId],default:[]},
+likes:{type:[mongoose.Types.ObjectId],ref:"user",default:[]},
+deslikes:{type:[mongoose.Types.ObjectId],ref:"user",default:[]},
+bookmarks:{type:[mongoose.Types.ObjectId],ref:"user",default:[]},
 price:{type:Number,default:0},
 discount:{type:Number,default:0},
-type:{type:String,required:true,default:"free"}, //virtual,phisycal
+type: {type: String, default: "free"/*free, cash, special */, required : true},
+status: {type: String, default: "notStarted" /*notStarted, Completed, Holding*/},
 time:{type:String,default:"00:00:00"},
 teacher:{type:mongoose.Types.ObjectId,ref:"user",required:true},
-chapter:{type:[Chapters],default:[]},
+chapters:{type:[Chapters],default:[]},
 students:{type:[mongoose.Types.ObjectId],default:[],ref:"user"}
-
+}, 
+{
+   toJSON: {
+       virtuals: true
+   }
 })
+CourseSchema.index({title:"text",text:"text",short_text:"text"})
 module.exports={
-   CoursetModel:mongoose.model("course",Schema)
+   CoursetModel:mongoose.model("course",CourseSchema)
 }

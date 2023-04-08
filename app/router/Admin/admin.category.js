@@ -1,6 +1,7 @@
 const { VerifyAccessToken } = require("../../http/middleware/VerifyAccessToken");
 const { BlogAdminRoutes } = require("./blog");
 const { CategoryRoutes } = require("./category");
+const { AdminCourseRouter } = require("./course");
 const { AdminProductRoutes } = require("./product");
 const router=require("express").Router();
 
@@ -9,6 +10,8 @@ const router=require("express").Router();
  *  tags:
  *      -   name: Admin-Panel
  *          description: action admin
+ *      -   name: Course(Admin-Panel)
+ *          description: all method and routers course
  *      -   name: Category(Admin-Panel)
  *          description: all method and routes categories
  *      -   name: Product(Admin-Panel)
@@ -20,6 +23,7 @@ const router=require("express").Router();
 router.use("/category",CategoryRoutes)
 router.use("/blogs",BlogAdminRoutes)
 router.use("/product",AdminProductRoutes)
+router.use("/course",AdminCourseRouter)
 module.exports={
     AdminCategoryRoutes:router
 }
