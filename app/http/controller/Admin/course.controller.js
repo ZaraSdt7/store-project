@@ -46,8 +46,10 @@ let courses;
 if(search) courses = await CoursetModel.find({$text:{$search:search}}).sort({_id:-1})
 else courses = await CoursetModel.find({}).sort({_id:-1}) 
 return res.status(HttpStatus.OK).json({
-statusCode:HttpStatus.OK,  
- courses
+statusCode:HttpStatus.OK,
+data:{
+courses
+}  
 }) 
 } catch (error) {
   next(error)  

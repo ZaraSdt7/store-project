@@ -6,6 +6,7 @@ const Controller = require("../controller");
 const { BlogModel } = require("../../models/blog");
 const { DeleteFileInPublic } = require("../../../utils/function");
 const { object } = require("@hapi/joi");
+const httpStatus = require("http-status");
 class BlogController extends Controller{
     async CreateBlog(req,res,next){
         try {
@@ -16,9 +17,9 @@ class BlogController extends Controller{
         const image=req.body.image;
         const author=req.user._id;
         const blogs=await BlogModel.create({title,text,short_text,categories,image,author,tags})
-        return res.status(201).json({
+        return res.status(httpStatus.CREATED).json({
+            statusCode:httpStatus.CREATED,
          data:{
-            statusCode:201,
             message:"ایجاد بلاگ با موفقیت ثبت شد",
             blogs
          }   
@@ -69,9 +70,9 @@ async GetListOfBlog(req,res,next){
             }
         }
      ])   
-     return res.status(200).json({
+     return res.status(httpStatus.OK).json({
      data:{
-        statusCode:200,
+        statusCode:httpStatus.OK,
         blog
      }
      })   
@@ -85,7 +86,7 @@ async GetOneById(req,res,next){
     try {
     const {id} =req.params;
     const blog=await this.FindBlogId(id);
-    return res.status(200).json({
+    return res.status(httpStatus.OK).json({
         data:{
             blog
         }
@@ -101,9 +102,9 @@ async DeleteBlogByID(req,res,next){
      await this.FindBlogId(id);
      const result=await BlogModel.deleteOne({_id:id});
      if(result.deletedCount == 0) throw createerror.InternalServerError("حذف انجام نشد");
-     return res.status(200).json({
+     return res.status(httpStatus.OK).json({
+         statusCode:httpStatus.OK,
         data:{
-            statusCode:200,
             message:"حذف ب موفقیت انجام شد"
         }
      })   
@@ -132,9 +133,9 @@ async UpdateBlogByID(req,res,next){
 })   
     const resultUpdate= await BlogModel.updateOne({_id:id},{$set:data})
     if(resultUpdate.modifiedCount == 0) throw createerror.InternalServerError("بروز رسانی انجام نشد")   
-    return res.status(200).json({
+    return res.status(httpStatus.OK).json({
+        statusCode:httpStatus.OK,
         data:{
-            statusCode:200,
             message:"بروز رسانی انجام شد "
         }
     })

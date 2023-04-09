@@ -30,8 +30,8 @@ try {
   let feture =SetFeture(req.body);
   const product=await ProductModel.create({title,text,short_text,category,supplier,images,type,feture,count,discount,price})   
   return res.status(HttpStatus.CREATED).json({
+   statusCode:HttpStatus.CREATED,
     data:{
-      statusCode:HttpStatus.CREATED,
       message: "ثبت محصول با موفقیت انجام شد",
       product
     }
@@ -54,8 +54,8 @@ DeleteInvitedPropertyObject(data,BlackListFeild)
 const EditProduct=await ProductModel.updateOne({_id:product._id},{$set:data});
 if(EditProduct.modifiedCount==0) throw {status:HttpStatus.INTERNAL_SERVER_ERROR, message:"خطای داخلی"}
 return res.status(HttpStatus.OK).json({ 
-data:{
 statusCode:HttpStatus.OK,
+data:{
 message:"بروزرسانی انجام شد"  
 }
 })
@@ -63,14 +63,6 @@ message:"بروزرسانی انجام شد"
   next(error)  
 }    
     
-}    
-RemoveProduct(req,res,next){
- try {
-            
-} catch (error) {
-  next(error)  
-}    
-        
 }    
 async GetAllProduct(req,res,next){
 try {
@@ -86,8 +78,8 @@ $text:{
   product=await ProductModel.find({})
 }
 return res.status(HttpStatus.OK).json({
+statusCode:HttpStatus.OK,
   data:{
-    statusCode:HttpStatus.OK,
     product
   }
 })                
@@ -102,7 +94,9 @@ const {id}=req.params;
 const product=await this.FindProductById(id);
 return res.status(HttpStatus.OK).json({
 statusCode:HttpStatus.OK,
+data:{
 product  
+}
 })
                     
 } catch (error) {
@@ -118,7 +112,9 @@ async RemoveProductById(req,res,next){
   if (removeproduct.deletedCount == 0) throw createerror.InternalServerError("حذف محصول انجام نشد");
   return res.status(HttpStatus.OK).json({
   statusCode:HttpStatus.OK,
+  data:{
   message:"حذف محصول با موفقیت انجام شد" 
+  }
   })
                       
   } catch (error) {

@@ -3,6 +3,7 @@ const { categorySchema, UpdateCategorySchema } = require("../../validations/admi
 const createerror = require("http-errors");
 const mongoose=require("mongoose");
 const Controller = require("../controller");
+const httpStatus = require("http-status");
 
 class CategoryController extends Controller {
   async AddCategory(req, res, next) {
@@ -11,9 +12,9 @@ class CategoryController extends Controller {
       const { title, parent } = req.body;
       const category = await CategoryModel.create({ title, parent });
       if (!category) throw createerror.InternalServerError("خطای داخلی");
-      return res.status(201).json({
+      return res.status(httpStatus.CREATED).json({
+        statusCode: httpStatus.CREATED,
         data: {
-          statusCode: 201,
           message: "دسته بندی با موفقیت ثبت شد",
         },
       });
@@ -25,7 +26,7 @@ class CategoryController extends Controller {
 async getAllParents(req,res,next){
 try {
 const parent=await CategoryModel.find({parent:undefined});
-return res.status(200).json({
+return res.status(httpStatus.OK).json({
  data:{
   parent
  } 
@@ -39,7 +40,7 @@ async getChildrenOfParents(req,res,next){
 try {
 const {parent}=req.params;
 const children=await CategoryModel.find({parent:new mongoose.Types.ObjectId(parent)})
-return res.status(200).json({
+return res.status(httpStatus.OK).json({
   data:{
   children
   }
@@ -92,9 +93,9 @@ try {
 //   }
 //   ]) 
 const categories=await CategoryModel.find({parent:undefined});
-return res.status(200).json({
+return res.status(httpStatus.OK).json({
+  statusCode:httpStatus.OK,
   data:{
-    statusCode:200,
     categories
   }
 }) 
@@ -111,9 +112,9 @@ async getAllCategoryWithoutPopulate(req,res,next){
       $match: {}
     }
   ]);
-  return res.status(200).json({
+  return res.status(httpStatus.OK).json({
+    statusCode:httpStatus.OK,
     data:{
-      statusCode:200,
       category
     }
   })
@@ -130,9 +131,9 @@ async UpdateCategories(req,res,next){
   const categoryID=await this.ExistCategory(id);
   const updateresult=await CategoryModel.updateOne({_id:id},{$set:{title}});
   if(updateresult.modifiedCount == 0) throw createerror.InternalServerError("بروز رسانی انجام نشد");
-  return res.status(200).json({
+  return res.status(httpStatus.OK).json({
+    statusCode:httpStatus.OK,
     data:{
-      statusCode:200,
       message:"بروز رسانی انجام شد"
     }
   })  
@@ -155,9 +156,9 @@ async RemoveCategory(req,res,next){
     {parent:category._id}
   ]});
   if(removeCategory.deletedCount == 0) throw createerror.InternalServerError("حذف شناسه انجام نشد");
-  return res.status(200).json({
+  return res.status(httpStatus.OK).json({
+    statusCode:httpStatus.OK,
     data:{
-      statusCode:200,
       message:"حذف شناسه با موفقیت انجام شد"
     }
   })  
@@ -195,7 +196,7 @@ const category=await CategoryModel.aggregate([
     }
   }
 ])
-return res.status(200).json({
+return res.status(httpStatus.OK).json({
   data:{
     category
   }

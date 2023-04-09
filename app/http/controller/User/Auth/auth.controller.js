@@ -7,6 +7,7 @@ const users = require("../../../models/users");
 const { UserModel } = require("../../../models/users");
 const { CheckOtpSchema, GetOtpSchema,} = require("../../../validations/user/auth.Schema");
 const Controller = require("../../controller");
+const httpStatus = require("http-status");
 class UserAuthController extends Controller {
   async GetOtp(req, res, next) {
     try {
@@ -15,9 +16,9 @@ class UserAuthController extends Controller {
       const code = PhoneNumberGenerator();
       const result = await this.SaveUser(mobile, code);
       if (!result) throw createerror.Unauthorized("ورود شما انجام نشد");
-      return res.status(200).send({
+      return res.status(httpStatus.OK).send({
+        statuscode: httpStatus.OK,
         data: {
-          statuscode: 200,
           message: "کد اعتبارسنجی باموفقیت ارسال شد",
           code,
           mobile,
@@ -42,7 +43,8 @@ class UserAuthController extends Controller {
       user.RefreshToken=RefreshToken;
       user.save();
       return res.json({
-        data: { accesstoken, 
+        data: { 
+          accesstoken, 
           RefreshToken ,
             
         }
