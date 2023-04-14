@@ -1,8 +1,8 @@
 const HttpStatus = require("http-status");
-const { CoursetModel } = require("../../models/course");
+const { CoursetModel } = require("../../../models/course");
 const path = require("path");
-const Controller = require("../controller");
-const { CreateCourseSchema } = require("../../validations/admin/course.schema");
+const Controller = require("../../controller");
+const { CreateCourseSchema } = require("../../../validations/admin/course.schema");
 const createHttpError = require("http-errors");
 
 class CourseController extends Controller{

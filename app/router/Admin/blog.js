@@ -1,8 +1,7 @@
 const { Router } = require("express");
-const blogControler = require("../../http/controller/Admin/blog.controler");
-const { BlogController } = require("../../http/controller/Admin/blog.controler");
 const { StringtoArray } = require("../../http/middleware/StringToArray");
 const { uploadFile } = require("../../utils/multer");
+const { BlogController } = require("../../http/controller/Admin/Blog/blog.controler");
 const router=require("express").Router();
 
 router.get("/",BlogController.GetListOfBlog)

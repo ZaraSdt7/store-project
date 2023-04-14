@@ -1,4 +1,5 @@
-const { ProdutController } = require("../../http/controller/Admin/product.controler");
+
+const { ProdutController } = require("../../http/controller/Admin/Product/product.controler");
 const { uploadFile } = require("../../utils/multer");
 
 const router=require("express").Router();

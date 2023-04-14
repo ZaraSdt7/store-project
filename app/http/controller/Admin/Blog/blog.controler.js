@@ -1,10 +1,10 @@
 const { json } = require("express");
-const { CreateBlogSchema } = require("../../validations/admin/blog.schema");
+const { CreateBlogSchema } = require("../../../validations/admin/blog.schema");
 const path=require("path");
 const createerror=require("http-errors");
-const Controller = require("../controller");
-const { BlogModel } = require("../../models/blog");
-const { DeleteFileInPublic } = require("../../../utils/function");
+const Controller = require("../../controller");
+const { BlogModel } = require("../../../models/blog");
+const { DeleteFileInPublic } = require("../../../../utils/function");
 const { object } = require("@hapi/joi");
 const httpStatus = require("http-status");
 class BlogController extends Controller{

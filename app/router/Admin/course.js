@@ -1,4 +1,5 @@
-const { CourseController } = require("../../http/controller/Admin/course.controller")
+
+const { CourseController } = require("../../http/controller/Admin/Course/course.controller")
 const { StringtoArray } = require("../../http/middleware/StringToArray")
 const { uploadFile } = require("../../utils/multer")
 const router=require("express").Router()

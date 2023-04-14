@@ -1,7 +1,8 @@
-const { CategoryController } = require("../../http/controller/Admin/category");
+const { CategoryController } = require("../../http/controller/Admin/Category/category");
+
 const router = require("express").Router();
 
-router.post("/add", CategoryController.AddCategory);
+router.post("/add",CategoryController.AddCategory);
 router.get("/parent", CategoryController.getAllParents);
 router.get("/children/:parent", CategoryController.getChildrenOfParents);
 router.get("/all", CategoryController.getAllCategory);
