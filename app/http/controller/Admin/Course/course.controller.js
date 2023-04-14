@@ -4,6 +4,7 @@ const path = require("path");
 const Controller = require("../../controller");
 const { CreateCourseSchema } = require("../../../validations/admin/course.schema");
 const createHttpError = require("http-errors");
+const { default: mongoose } = require("mongoose");
 
 class CourseController extends Controller{
 async AddCourse(req,res,next){
@@ -68,6 +69,12 @@ course
 } catch (error) {
   next(error)
 }  
+}
+async FindcourseByID(id){
+if(!mongoose.isValidObjectId(id)) throw createHttpError.BadRequest("شناسه یافت نشد")
+const courses=await CoursetModel.findById(id);
+if(!courses) throw createHttpError.NotFound("دوره ای یافت نشد");
+return courses;  
 }
 }
 module.exports={
