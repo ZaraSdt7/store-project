@@ -6,7 +6,7 @@
  *          properties:
  *              statusCode:                 
  *                  type: integer
- *                  example: 20X
+ *                  example: 201
  *              data:
  *                  type: object
  *                  properties:

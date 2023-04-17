@@ -66,7 +66,8 @@
  *                                      example: 20
  *                                  teacher:
  *                                      type: string
- *                                      example: "zara sdt
+ *                                      example: "zara sdt"
+*/
 
 /**
  * @swagger
