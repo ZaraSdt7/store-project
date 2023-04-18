@@ -40,6 +40,32 @@ const chapters = await CoursetModel.findOne({_id:id},{chapters:1 , title:1})
 if (!chapters) throw createHttpError.NotFound("دوره ای یافت نشد");
 return chapters;  
 }
+async RemoveChapterByID(req,res,next){
+try {
+const {chapterID} = req.params;
+const chapter = await this.GetOneChapter(chapterID);
+const removechapter = await CoursetModel.updateOne({"chapters._id":id},{
+  $pull : {
+    chapters :{
+      _id:chapterID
+    }}
+})
+if (removechapter.modifiedCount == 0) throw new createHttpError.InternalServerError("حذف فصل انجام نشد");
+return res.status(httpStatus.OK).json({
+statusCode:httpStatus.OK,
+data:{
+  message: "حذف فصل با موفقیت انجام شد"
+}
+})
+} catch (error) {
+  next(error)
+}  
+}
+async GetOneChapter(id){
+const chapter = await CoursetModel.findOne({"chapters._id":id},{"chapters.$":1});
+if (!chapter) throw new createHttpError.NotFound("فصلی با این شناسه یافت نشد");
+return chapter  
+}
 }
 module.exports={
 ChapterController: new ChapterController()    
