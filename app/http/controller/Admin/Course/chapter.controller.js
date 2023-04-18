@@ -14,12 +14,31 @@ if(SaveChapter.modifiedCount == 0) throw createHttpError.InternalServerError("ف
 return res.status(httpStatus.CREATED).json({
 statusCode:httpStatus.CREATED,
 data:{
-  message:"فصل ب موفقیت ایجاد شد"
+  message:"فصل با موفقیت ایجاد شد"
 }
 }) 
 } catch (error) {
   next(error)  
 }    
+}
+async ChapterOfCourse(req,res,next){
+try {
+const {courseID} = req.params;
+const course = await this.GetChaptersOfCourse(courseID);
+return res.status(httpStatus.OK).json({
+statusCode:httpStatus.OK,
+data:{
+  course
+}  
+})
+} catch (error) {
+  next(error)
+}  
+}
+async GetChaptersOfCourse(id){
+const chapters = await CoursetModel.findOne({_id:id},{chapters:1 , title:1})
+if (!chapters) throw createHttpError.NotFound("دوره ای یافت نشد");
+return chapters;  
 }
 }
 module.exports={

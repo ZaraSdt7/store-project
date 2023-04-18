@@ -1,4 +1,3 @@
-const { VerifyAccessToken } = require("../../http/middleware/VerifyAccessToken");
 const { BlogAdminRoutes } = require("./blog");
 const { CategoryRoutes } = require("./category");
 const { AdminChapterRouter } = require("./chapter");
@@ -10,7 +9,7 @@ router.use("/category",CategoryRoutes)
 router.use("/blogs",BlogAdminRoutes)
 router.use("/product",AdminProductRoutes)
 router.use("/course",AdminCourseRouter)
-router.use("chapter",AdminChapterRouter)
+router.use("/chapter",AdminChapterRouter)
 module.exports={
     AdminRoutes:router
 }
