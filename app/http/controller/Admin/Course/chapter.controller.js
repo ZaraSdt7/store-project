@@ -3,6 +3,7 @@ const { CoursetModel } = require("../../../models/course");
 const Controller = require("../../controller");
 const { CourseController } = require("./course.controller");
 const httpStatus = require("http-status");
+const { DeleteInvitedPropertyObject } = require("../../../../utils/function");
 
 class ChapterController extends Controller{
 async AddChapter(req,res,next){
@@ -57,6 +58,25 @@ data:{
   message: "حذف فصل با موفقیت انجام شد"
 }
 })
+} catch (error) {
+  next(error)
+}  
+}
+async UpdateChapterByID(req,res,next){
+try {
+const {chapterID} = req.params;
+await this.GetOneChapter(chapterID);
+const data = req.body;
+DeleteInvitedPropertyObject(data,["_id"]);
+const UpdateResult = await CoursetModel.updateOne({"chapters._id":chapterID},
+{$set: {"chapters.$":data}})
+if (UpdateResult.modifiedCount == 0) throw new createHttpError.InternalServerError("بروز رسانی انجام");
+return res.status(httpStatus.OK).json({
+  statusCode:httpStatus.OK,
+  data:{
+    message: "بروز رسانی انجام شد"
+  }
+})  
 } catch (error) {
   next(error)
 }  

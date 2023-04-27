@@ -44,8 +44,13 @@ async GetListCourse(req,res,next){
 try {
 const {search}=req.query;
 let courses;
-if(search) courses = await CoursetModel.find({$text:{$search:search}}).sort({_id:-1})
-else courses = await CoursetModel.find({}).sort({_id:-1}) 
+if(search) courses = await CoursetModel.find({$text:{$search:search}}).
+populate([{path:"category",select:{title:1}},{path:"teacher",
+select:{first_name:1,last_name:1,mobile:1}}])
+.sort({_id:-1})
+else courses = await CoursetModel.find({}).
+populate([{path:"category",select:{children:0,parent:0}},{path:"teacher",
+select:{first_name:1,last_name:1,mobile:1}}]).sort({_id:-1}) 
 return res.status(HttpStatus.OK).json({
 statusCode:HttpStatus.OK,
 data:{
