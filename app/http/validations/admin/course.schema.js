@@ -14,7 +14,16 @@ type:joi.string().regex(/(free|cash|special)/i),
 filename:joi.string().pattern(/(\.png|\.jpeg|\.jpg|\.webp|\.gif)$/).error(createerror.BadRequest("تصویر ارسال شده صحیح نمی باشد")),
 fileUploadPath:joi.allow()    
 })
-
+const CreateEpisodeSchema=joi.object({
+    title:joi.string().min(3).max(30).error(createerror.BadRequest("عنوان دسته بندی صحیح نمی باشد")),
+    text:joi.string().error(createerror.BadRequest("متن ارسال شده صحیح نمی باشد")),
+    type:joi.string().regex(/(lock|unlock)/i),
+    chapterID:joi.string().regex(mongoIDpattern).error(createerror.BadRequest("شناسه فصل مورد نظر صحیح نمی باشد")),
+    courseID:joi.string().regex(mongoIDpattern).error(createerror.BadRequest("شناسه دوره مورد نظر صحیح نمی باشد")),
+    filename:joi.string().pattern(/(\.mp4|\.mkv|\.mpg|\.mov|\.avi)$/).error(createerror.BadRequest("فرمت ویدیوارسال شده صحیح نمی باشد")),
+    fileUploadPath:joi.allow()
+})
 module.exports={
-    CreateCourseSchema
+    CreateCourseSchema,
+    CreateEpisodeSchema
 }

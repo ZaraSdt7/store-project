@@ -103,6 +103,22 @@ function DeleteInvitedPropertyObject(data={},BlackListFeild=[]){
   }
 })
 }
+function GetTime(seconds){
+let total = Math.round(seconds)/60;
+let [minute,percent] = String(total).split(".");
+let second = Math.round((percent*60)/100).toString().substring(0,2);
+let hour = 0;
+if(minute >60){
+  total = minute/60
+  let [h1,percent] =String(total).split(".");
+  hour = h1;
+  minute = Math.round((percent*60)/100).toString().substring(0,2)
+}
+if (String(hour).length ==1) hour=`0${hour}`
+if (String(minute).length ==1) hour=`0${minute}`
+if (String(second).length ==1) hour=`0${second}`
+return (hour + ":" + minute + ";")
+}
 module.exports = {
   PhoneNumberGenerator,
   SignAccessToken,
@@ -112,5 +128,6 @@ module.exports = {
   ListOfImageForRequest,
   CopyObject,
   SetFeture,
-  DeleteInvitedPropertyObject
+  DeleteInvitedPropertyObject,
+  GetTime
 }

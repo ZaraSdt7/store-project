@@ -3,6 +3,7 @@ const {default:mongoose}=require("mongoose");
 const createerror=require("http-errors");
 const morgan = require("morgan");
 const path= require("path");
+require("dotenv").config();
 const swaggerUI=require("swagger-ui-express");
 const swaggerJSDoc = require("swagger-jsdoc");
 const Cors = require("cors");

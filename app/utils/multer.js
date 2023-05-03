@@ -42,9 +42,21 @@ const storage=multer.diskStorage({
     }
     return cb(createerror.BadRequest("فرمت ارسال شده صحیح نمی باشد"));    
     }
-    const maxsize=1*1000*1000;
-    const uploadFile=multer({storage,fileFilter,limits:{fieldSize:maxsize}});
+    function videoFilter(req,file,cb){
+        const ext=path.extname(file.originalname);
+        const mimetype=[".mp4",".mov",".mkv",".mpg",".avi"];
+        if(mimetype.includes(ext)){
+            return cb(null,true)
+        }
+        return cb(createerror.BadRequest("فرمت ویدیو ارسال شده صحیح نمیباشد"));    
+        }
+    const imagesize=1*1000*1000;
+    const videosize= 300*1000*1000;//300mb
+    const uploadFile=multer({storage,fileFilter,limits:{fieldSize:imagesize}});
+    const uploadvideo=multer({storage,videoFilter,limits:{fieldSize:videosize}});
+
 
     module.exports={
-        uploadFile
+        uploadFile,
+        uploadvideo
     }
