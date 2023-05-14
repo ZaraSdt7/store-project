@@ -1,6 +1,7 @@
 const {default:mongoose}=require("mongoose");
 const { commentschema } = require("./public.schema");
-const { process } = require("@hapi/joi/lib/errors");
+const { process:env } = require("@hapi/joi/lib/errors");
+const { GetTimeOfCourse } = require("../../utils/function");
 const Episodes=new mongoose.Schema({
 title:{type:String,required:true},
 text:{type:String,required:true},
@@ -8,8 +9,10 @@ type:{type:String,default:"unlock"},
 time:{type:String,required:true},
 videoAddress:{type:String,required:true}  
 },{toJSON:{virtuals:true}})
-//return `${process.env.BASE_URL}:${process.env.APPLICATION_PORT}/${this.videoAddress}`
-//})
+Episodes.virtual("videoURL").get(function(){
+return  `${process.env.BASE_URL}:${process.env.APPLICATION_PORT}/${this.videoAddress}`
+ })
+
 
 const Chapters=new mongoose.Schema({
 title:{type:String,required:true},
@@ -42,12 +45,12 @@ students:{type:[mongoose.Types.ObjectId],default:[],ref:"user"}
    }
 })
 CourseSchema.index({title:"text",text:"text",short_text:"text"})
-//CourseSchema.virtual("imageURL").get(function(){
-   //return `${process.env.BASE_URL}:${process.env.APPLICATION_PORT}/${this.image}`
-//})
-//CourseSchema.virtual("totalTime").get(function(){
-  // return getTimeOfCourse(this.chapters || [])
-//})
+CourseSchema.virtual("imageURL").get(function(){
+   return `${process.env.BASE_URL}:${process.env.APPLICATION_PORT}/${this.image}`
+})
+CourseSchema.virtual("TotalTime").get(function(){
+   return GetTimeOfCourse(this.chapters || [])
+})
 module.exports={
    CoursetModel:mongoose.model("course",CourseSchema)
 }

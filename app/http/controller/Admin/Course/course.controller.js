@@ -5,6 +5,8 @@ const Controller = require("../../controller");
 const { CreateCourseSchema } = require("../../../validations/admin/course.schema");
 const createHttpError = require("http-errors");
 const { default: mongoose } = require("mongoose");
+const { CopyObject, DeleteInvitedPropertyObject, DeleteFileInPublic } = require("../../../../utils/function");
+const httpStatus = require("http-status");
 
 class CourseController extends Controller{
 async AddCourse(req,res,next){
@@ -61,6 +63,32 @@ courses
   next(error)  
 }    
 }   
+async UpdateCourseByID(req,res,next){
+try {
+const {id} = req.params;
+const course = this.FindcourseByID(id);
+const data = CopyObject(req.body);
+const {fileUploadPath,filename} = req.body;
+let BlackListFeild = ["comments","likes","deslikes","bookmarks","time","chapters","filename","fileUploadPath","students","episod"];
+DeleteInvitedPropertyObject(data,BlackListFeild);
+if (req.file){
+  data.image = path.join(fileUploadPath,filename);
+  DeleteFileInPublic((await course).image);
+  }
+const updatecourse = await CoursetModel.updateOne({_id:id},
+  {$set:data
+  })
+  if(!updatecourse.modifiedCount) throw createHttpError.InternalServerError("بروز رسانی انجام نشد");
+  return res.status(httpStatus.OK).json({
+    statusCode:httpStatus.OK,
+    data:{
+      message:"بروزرسانی انجام شد"
+    }
+  })
+} catch (error) {
+  next(error)
+}  
+}
 
 async GetCourseByID(req,res,next){
 try {

@@ -78,3 +78,48 @@
  *                          schema: 
  *                              $ref: '#/definitions/publicDefinition'
  */
+/** 
+* @swagger
+ *  /admin/episode/remove/{episodeID}:
+ *      delete:
+ *          tags: [Episode(Admin-Panel)]
+ *          summary: remove episode of Chapter
+ *          parameters:
+ *              -   in: path
+ *                  name: episodeID
+ *                  type: string
+ *                  required: true
+ *          responses:
+ *              200:
+ *                  description: success
+ *                  content:
+ *                      application/json:
+ *                          schema: 
+ *                              $ref: '#/definitions/publicDefinition'
+ */
+
+/**
+ * @swagger
+ *  /admin/episode/update/{episodeID}:
+ *      patch:
+ *          tags: [Episode(Admin-Panel)]
+ *          summary: edit episode of chapter
+ *          parameters:
+ *              -   in: path
+ *                  name: episodeID
+ *                  type: string
+ *                  required: true
+ *          requestBody:
+ *              required: true
+ *              content:
+ *                  multipart/form-data: 
+ *                      schema:
+ *                          $ref: '#/components/schemas/EditEpisode'
+ *          responses:
+ *              200:
+ *                  description: success 
+ *                  content:
+ *                      application/json:
+ *                          schema: 
+ *                              $ref: '#/definitions/publicDefinition'
+ */

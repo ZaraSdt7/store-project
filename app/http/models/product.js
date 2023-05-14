@@ -34,6 +34,9 @@ feture:{type:Object,default:{
     }
 })
 productSchema.index({title:"text",short_text:"text",text:"text"})
+productSchema.virtual("imagesURL").get(function(){
+    return this.images.map(image=>`${process.env.BASE_URL}:${process.env.APPLICATION_PORT}/${image}`) 
+})
 module.exports={
     ProductModel:mongoose.model("product",productSchema)
 }

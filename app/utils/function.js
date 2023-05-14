@@ -117,7 +117,33 @@ if(minute >60){
 if (String(hour).length ==1) hour=`0${hour}`
 if (String(minute).length ==1) hour=`0${minute}`
 if (String(second).length ==1) hour=`0${second}`
-return (hour + ":" + minute + ";")
+return (hour + ":" + minute + ":" + second)
+}
+function GetTimeOfCourse(chapters =[]){
+let time,hour,minute,second = 0;
+for (const chapter of chapters) {
+if(Array.isArray(chapter ?.episod)){
+  for (const episode of chapter.episod) {
+  if(episode?.time) time = episode.time.split(":")
+  else time = "00:00:00".split(":");
+  if(time.lenght ==3){
+    second+=Number(time[0])*3600 //convert hour to second
+    second+=Number(time[1])*60 // convert minute to second
+    second+=Number(time[2]) // convert second to second
+  }  else if(time.lenght ==2){//5:20
+    second+=Number(time[0])*60 // convert minute to second
+    second+=Number(time[1]) // convert second to second
+  } 
+  }
+}  
+}
+hour = Math.floor(second/3600) // convert second to hour
+minute = Math.floor(second/60) %60 // convert second to mintue
+second = Math.floor(second%60); // convert second to second
+if (String(hour).length ==1) hour=`0${hour}`
+if (String(minute).length ==1) hour=`0${minute}`
+if (String(second).length ==1) hour=`0${second}`
+return (hour + ":" + minute + ":" + second)
 }
 module.exports = {
   PhoneNumberGenerator,
@@ -129,5 +155,6 @@ module.exports = {
   CopyObject,
   SetFeture,
   DeleteInvitedPropertyObject,
-  GetTime
+  GetTime,
+  GetTimeOfCourse
 }

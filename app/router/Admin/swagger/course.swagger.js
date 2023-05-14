@@ -118,7 +118,42 @@
  *                      format: binary
  *                  type:
  *                      $ref: '#/components/schemas/types'
- * 
+ *          Edit-Course:
+ *              type: object
+ *              properties:
+ *                  title:
+ *                      type: string
+ *                      description: the title of course
+ *                      example: عنوان دوره
+ *                  short_text:
+ *                      type: string
+ *                      description: the title of course
+ *                      example: متن کوتاه شده تستی
+ *                  text:
+ *                      type: string
+ *                      description: the title of course
+ *                      example: متن توضیحات کامل دوره به صورت تستی
+ *                  tags:
+ *                      type: array
+ *                      description: the tags of course
+ *                  category:
+ *                      type: string
+ *                      description: the cqtegory of course
+ *                      example: 6279e994c1e47a98d0f356d3
+ *                  price:
+ *                      type: string
+ *                      description: the title of course
+ *                      example: 2500000
+ *                  discount:
+ *                      type: string
+ *                      description: the title of course
+ *                      example: 20
+ *                  image:
+ *                      type: string
+ *                      format: binary
+ *                  type:
+ *                      $ref: '#/components/schemas/types'
+ *                      
  */
 
 /**
@@ -162,6 +197,33 @@
  *                          schema:
  *                              $ref: '#/definitions/ListOfCourses'
  */
+/**
+ * @swagger
+ *  /admin/course/update/{id}:
+ *      patch:
+ *          tags: [Course(Admin-Panel)]
+ *          summary: update and save course
+ *          parameters:
+ *              -   in: path
+ *                  name: id
+ *                  type: string
+ *                  required: true
+ *          requestBody:
+ *              required: true
+ *              content:
+ *                  multipart/form-data:
+ *                      schema:
+ *                          $ref: '#/components/schemas/Edit-Course'
+ *          
+ *          responses:
+ *              201:
+ *                  description: created new course
+ *                  content:
+ *                      application/json:
+ *                          schema:
+ *                              $ref: '#/definitions/publicDefinition'
+ * 
+ */
 
 /**
 * @swagger
@@ -178,4 +240,3 @@
  *              200:
  *                  description: success
  */
-
