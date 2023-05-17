@@ -3,6 +3,8 @@
  *  tags:
  *      -   name: Admin-Panel
  *          description: action admin
+ *      -   name: User(Admin-Panel)
+ *          description: Mangment All User
  *      -   name: Course(Admin-Panel)
  *          description: all method and routers course
  *      -   name: Chapter(Admin-Panel)

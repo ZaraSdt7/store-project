@@ -138,7 +138,7 @@ if(Array.isArray(chapter ?.episod)){
 }  
 }
 hour = Math.floor(second/3600) // convert second to hour
-minute = Math.floor(second/60) %60 // convert second to mintue
+minute = Math.floor(second/60) %60; // convert second to mintue
 second = Math.floor(second%60); // convert second to second
 if (String(hour).length ==1) hour=`0${hour}`
 if (String(minute).length ==1) hour=`0${minute}`

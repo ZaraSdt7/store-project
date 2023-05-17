@@ -36,7 +36,7 @@ async RemoveEpisode(req,res,next){
 try {
 const { id:episodeID } = await objectIdvalidation.validateAsync({
      id:req.params.episodeID});
-//await this.GetOneEpisode(episodeID)
+await this.GetOneEpisode(episodeID)
 const RemoveEpisode = await CoursetModel.updateOne({"chapters.episod._id":episodeID},{
     $pull:{"chapters.$episod":{_id:episodeID}}
 }) 

@@ -1,6 +1,5 @@
-const { string } = require("@hapi/joi");
 const {default:mongoose}=require("mongoose");
-const Schema=new mongoose.Schema({
+const UserSchema=new mongoose.Schema({
 frist_name:{type:String},
 last_name:{type:String},
 user_name:{type:String,lowercase:true},
@@ -25,6 +24,7 @@ course:{type:[mongoose.Types.ObjectId],ref:"course",default:[]}
         virtuals : true
     }
 });
+UserSchema.index({first_name:"text",last_name:"text",user_name:"text",mobile:"text",email:"text"})
 module.exports={
-    UserModel:mongoose.model("user",Schema)
+    UserModel:mongoose.model("user",UserSchema)
 }
