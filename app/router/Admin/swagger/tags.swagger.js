@@ -3,6 +3,8 @@
  *  tags:
  *      -   name: Admin-Panel
  *          description: action admin
+ *      -   name: RBAC(Admin-Panel)
+ *          description: Role back access controll
  *      -   name: User(Admin-Panel)
  *          description: Mangment All User
  *      -   name: Course(Admin-Panel)
