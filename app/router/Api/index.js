@@ -1,18 +1,13 @@
 const homeController = require("../../http/controller/Api/home.controller");
 const { VerifyAccessToken } = require("../../http/middleware/VerifyAccessToken");
 const router=require("express").Router();
-/**
- * @swagger
- * tags:
- *  name: IndexPage
- *  description: index page and router
- */
+
 /**
  * @swagger
  * /:    
  *  get:
  *      summary: index of routes
- *      tags: [IndexPage]
+ *      tags: [(IndexPage)]
  *      description: get all need date for index page
  *      parameters:
  *         -    in: header

@@ -4,15 +4,9 @@ const bcrypt=require("bcrypt");
 //const { models } = require("mongoose");
 /**
  * @swagger
- *  tags:
- *   name: Developer-Router
- *   description: developer utils
- */
-/**
- * @swagger
  *  /developer/password-hash/{password}:
  *      get:
- *          tags: [Developer-Router]
+ *          tags: [(Developer-Router)]
  *          summary: hash data with bcrypt
  *          parameters:
  *              -   in: path
@@ -35,7 +29,7 @@ router.get("/password-hash/:password",(req,res,next)=>{
  * @swagger
  *  /developer/random-number:
  *      get:
- *          tags: [Developer-Router]
+ *          tags: [(Developer-Router)]
  *          summary: get random number
  *          responses:
  *                  200:

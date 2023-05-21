@@ -19,4 +19,10 @@
  *          description: all method and routes product
  *      -   name: Blog(Admin-Panel)  
  *          description: all method router of blogs
+ *      -   name: (Developer-Router)
+ *          description: developer utils 
+ *      -   name: (USer-Authentication)
+ *          description: user_auth section
+ *      -   name: (IndexPage)
+ *          description: index page and router
  */
