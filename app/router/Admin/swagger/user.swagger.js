@@ -12,7 +12,7 @@
  *                  last_name:
  *                      type: string
  *                      description: the last_name of user
- *                      example: Yousefi
+ *                      example: sdt
  *                  email:
  *                      type: string
  *                      description: the email of user

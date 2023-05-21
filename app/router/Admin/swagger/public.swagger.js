@@ -12,5 +12,5 @@
  *                  properties:
  *                      message:
  *                          type: string
- *                          example: "the best message for that action"
+ *                          example: "the best message for the action"
  */
