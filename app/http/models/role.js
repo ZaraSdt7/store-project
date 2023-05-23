@@ -8,5 +8,5 @@ permissions:{type:[mongoose.Types.ObjectId],ref:'permission',default:[]}
 toJSON:{virtuals:true}
 })
 module.exports={
-    RoleModel:mongoose.Model("role",RoleSchema)
+    RoleModel:mongoose.model("role",RoleSchema)
 }
