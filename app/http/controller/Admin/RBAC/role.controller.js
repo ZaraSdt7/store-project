@@ -4,6 +4,7 @@ const Controller = require("../../controller");
 const createHttpError = require("http-errors");
 const { RoleSchema } = require("../../../validations/admin/RBAC.schema");
 const { default: mongoose } = require("mongoose");
+const { CopyObject, DeleteInvitedPropertyObject } = require("../../../../utils/function");
 
 class RoleController extends Controller{
 async GetAllRoles(req,res,next){
@@ -34,6 +35,24 @@ return res.status(httpStatus.CREATED).json({
 } catch (error) {
   next(error)  
 }    
+}
+async UpdateRoleByID(req,res,next){
+try {
+const {id}=req.params;
+const role = this.FindRoleByIDorTitle(id);
+const data= CopyObject(req.body);
+DeleteInvitedPropertyObject(data,[]);
+const updaterole = await RoleModel.updateOne({_id:role._id},{$set:data})
+if(!updaterole.modifiedCount) throw new createHttpError.InternalServerError("بروز رسانی رول انجام نشد")
+return res.status(httpStatus.OK).json({
+statusCode:httpStatus.OK,
+data:{
+  message:"بروز رسانی رول با موفقیت انجام شد"
+}  
+})  
+} catch (error) {
+  next(error)
+}  
 }
 async RemoveRole(req,res,next){
 try {
