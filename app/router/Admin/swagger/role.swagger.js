@@ -158,7 +158,7 @@
  *                  name: field
  *                  type: string
  *                  required: true    
- *                  description: send title of role or objectId of role for remove that    
+ *                  description: send title of role or objectId of role for remove   
  *          responses:
  *              200:
  *                  description: removed the Role
