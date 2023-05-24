@@ -3,6 +3,7 @@ const { PermissionModel } = require("../../../models/permission");
 const Controller = require("../../controller");
 const { PermissionSchema } = require("../../../validations/admin/RBAC.schema");
 const createHttpError = require("http-errors");
+const { CopyObject, DeleteInvitedPropertyObject } = require("../../../../utils/function");
 
 class PermissionController extends Controller{
 async GetAllPermissions(req,res,next){
@@ -28,6 +29,24 @@ return res.status(httpStatus.CREATED).json({
 statusCode:httpStatus.CREATED,
 data:{
   message:"ایجاد سطح دسترسی با موفقیت انجام شد"
+}  
+})
+} catch (error) {
+  next(error)
+}  
+}
+async UpdatePermissionByID(req,res,next){
+try {
+const {id}= req.params;
+await this.FindPermissionByID(id);
+const data = CopyObject(req.body);
+DeleteInvitedPropertyObject(data,[]);
+const UpdatePer= await PermissionModel.updateOne({_id:id},{$set:data});
+if(!UpdatePer.modifiedCount) throw new createHttpError.InternalServerError("بروزرسانی سطح دسترسی انجام نشد");
+return res.status(httpStatus.OK).json({
+statusCode:httpStatus.OK,
+data:{
+message:"بروزرسانی با موفقیت انجام شد"  
 }  
 })
 } catch (error) {
