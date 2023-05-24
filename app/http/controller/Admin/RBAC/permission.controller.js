@@ -34,9 +34,26 @@ data:{
   next(error)
 }  
 }
+async RemovePermission(req,res,next){
+const {id}= req.params;
+await this.FindPermissionByID(id);
+const removeper= await PermissionModel.deleteOne({_id:id});
+if(!removeper.deletedCount) throw new createHttpError.InternalServerError("سطح دسترسی حذف نشد");
+return res.status(httpStatus.OK).json({
+statusCode:httpStatus.OK,
+data:{
+message:"سطح دسترسی با موفقیت حذف شد"  
+}  
+})   
+}
 async FindPermissionByName(name){
 const findname = await PermissionModel.findOne({name});
 if(findname) throw new createHttpError.BadRequest("نام دسترسی قبلا ثبت شده");  
+}
+async FindPermissionByID(_id){
+const findper = await PermissionModel.findOne({_id});
+if(!findper) throw new createHttpError.NotFound("شناسه دسترسی یافت نشد ")
+return findper;  
 }
 }
 module.exports={
