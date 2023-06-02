@@ -11,7 +11,7 @@ const { DeveloperRoutes } = require("./User/develope");
 })();
 const router=require("express").Router();
 router.use("/user",UserAuthRouter)
-router.use("/admin",VerifyAccessToken,CheckRole("ADMIN"),AdminRoutes)
+router.use("/admin",VerifyAccessToken,AdminRoutes)
 router.use("/developer",DeveloperRoutes)
 router.use("/",HomeRouter)
 module.exports={

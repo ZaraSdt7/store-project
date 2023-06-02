@@ -52,7 +52,7 @@ data.feture=SetFeture(req.body);
 let BlackListFeild=Object.values(ProductBlackList);
 DeleteInvitedPropertyObject(data,BlackListFeild)
 const EditProduct=await ProductModel.updateOne({_id:product._id},{$set:data});
-if(EditProduct.modifiedCount==0) throw {status:HttpStatus.INTERNAL_SERVER_ERROR, message:"خطای داخلی"}
+if(EditProduct.modifiedCount==0) throw new createerror.InternalServerError("بروز رسانی محصول انجام نشد")
 return res.status(HttpStatus.OK).json({ 
 statusCode:HttpStatus.OK,
 data:{

@@ -42,7 +42,7 @@ const {id}=req.params;
 const role = this.FindRoleByIDorTitle(id);
 const data= CopyObject(req.body);
 DeleteInvitedPropertyObject(data,[]);
-const updaterole = await RoleModel.updateOne({_id:role._id},{$set:data})
+const updaterole = await RoleModel.updateOne({id:role._id},{$set:{...data}})
 if(!updaterole.modifiedCount) throw new createHttpError.InternalServerError("بروز رسانی رول انجام نشد")
 return res.status(httpStatus.OK).json({
 statusCode:httpStatus.OK,
@@ -71,7 +71,7 @@ message:"حذف رول با موفقیت انجام شد"
 }  
 }
 async FindRoleByIDorTitle(field){
-let FindQuery = mongoose.isValidObjectId(field)? {_id:field}:{title:field};
+let FindQuery = mongoose.isValidObjectId(field)?{_id:field}:{title:field};
 const role = await RoleModel.findOne(FindQuery);
 if(!role) throw new createHttpError.NotFound("رول یافت نشد");
 return role;

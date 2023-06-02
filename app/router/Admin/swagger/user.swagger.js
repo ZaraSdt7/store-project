@@ -78,6 +78,18 @@
  *                          schema:
  *                              $ref: '#/definitions/ListOfUsers'
  */
+
+/**
+ * @swagger
+ *  /admin/user/profile:
+ *      get:
+ *          tags: [User(Admin-Panel)]
+ *          summary: get user profile
+ *          responses :
+ *              200:
+ *                  description: success
+ */
+
 /**
  * @swagger
  *  /admin/user/update-profile:

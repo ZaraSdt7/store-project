@@ -15,7 +15,7 @@ discount:{type:Number,default:0},
 brithday:{type:String},
 accesstoken:{type:String,default:''},
 RefreshToken:{type:String,default:''},
-Roles:{type:[String],default:["USER"]},
+Role:{type:String,default:"USER"},
 course:{type:[mongoose.Types.ObjectId],ref:"course",default:[]}    
 },
 {

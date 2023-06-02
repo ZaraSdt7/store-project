@@ -41,6 +41,20 @@ return res.status(httpStatus.OK).json({
   next(error)
 }
 }
+async UserProfile(req,res,next){
+try {
+const user = req.user;
+//bill,courses,discount...
+return res.status(httpStatus.OK).json({
+statusCode:httpStatus.OK,
+data:{
+  user
+}  
+})  
+} catch (error) {
+  next(error)
+}  
+}
 }
 module.exports = {
     UserController : new UserController()

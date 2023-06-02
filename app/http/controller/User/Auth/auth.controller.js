@@ -1,7 +1,7 @@
 const { extend, object } = require("@hapi/joi");
 const keys = require("@hapi/joi/lib/types/keys");
 const createerror = require("http-errors");
-const {  USER_ROLE } = require("../../../../utils/constans");
+const {  USER_ROLE, ROLES } = require("../../../../utils/constans");
 const { PhoneNumberGenerator,SignAccessToken,VerifyRefreshToken,SignAccessRefrshToken,} =require("../../../../utils/function");
 const users = require("../../../models/users");
 const { UserModel } = require("../../../models/users");
@@ -88,7 +88,7 @@ class UserAuthController extends Controller {
     return !!(await UserModel.create({
       mobile,
       otp,
-      Roles: [USER_ROLE.USER]
+      Role: ROLES.USER
     }));
   }
   async CheckLogin(mobile) {
