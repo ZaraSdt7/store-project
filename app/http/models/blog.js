@@ -7,11 +7,11 @@ text:{type:String,required:true},
 short_text:{type:String,required:true},
 image:{type:String,required:true},
 tags:{type:[String],default:[]},
-categories:{type:[mongoose.Types.ObjectId],ref:"category",required:true},
-comment:{type:[commentschema],required:[]},
-like:{type:[mongoose.Types.ObjectId],ref:"user",default:[]},
-deslike:{type:[mongoose.Types.ObjectId],ref:"user",default:[]},
-bookmark:{type:[mongoose.Types.ObjectId],ref:"user",default:[]}
+categories:{type:mongoose.Types.ObjectId,ref:"category",required:true},
+comments:{type:[commentschema],required:[]},
+like:{type:[mongoose.Types.ObjectId],ref:'user',default:[]},
+deslike:{type:[mongoose.Types.ObjectId],ref:'user',default:[]},
+bookmark:{type:[mongoose.Types.ObjectId],ref:'user',default:[]}
 },{timestamps:true,
     versionKey:false,
     toJSON:{

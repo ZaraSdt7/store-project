@@ -31,8 +31,18 @@ function VerifyAccessToken(req, res, next) {
     next(error)
   }
 }
-
+async function GraphAccessToken(req){
+try{
+const token = GetToken(req.headers)
+const {mobile} = JWT.verify(token,ACCESS_TOKEN_SECRET_KEYS);
+const user = await UserModel.find({mobile},{password:0},{otp:0});
+if(!user) throw createerror.Unauthorized("حساب کاربری یافت نشد");
+return user  
+}catch(error){
+throw new createerror.Unauthorized()  
+}  
+}
 module.exports = {
-  VerifyAccessToken
-  
+  VerifyAccessToken,
+  GraphAccessToken
 };

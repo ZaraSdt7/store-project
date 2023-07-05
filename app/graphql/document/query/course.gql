@@ -1,0 +1,22 @@
+{
+  courses{
+    _id,
+    status,
+    short_text,
+    tags,
+    type,
+    category{
+      _id,
+      title
+    }
+    comments{
+      _id
+      comment,
+      craeteAt,
+      OpenToComment
+    }
+    like{
+      _id
+    }
+  }
+}

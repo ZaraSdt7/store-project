@@ -1,0 +1,10 @@
+mutation {
+  CommentCourseMutation(
+    courseID: "642be691032fdfbccca09456"
+    comment: "helo melo"
+    parent: "649ff8a59a4c95877f9b8e1a"
+  ) {
+    statusCode
+    data
+  }
+}

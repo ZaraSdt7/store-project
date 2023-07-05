@@ -1,0 +1,6 @@
+mutation{
+  DeLikesProduct(productID:"64a19e7a06ba1318a7a7baf2"){
+    statusCode,
+    data
+  }
+}

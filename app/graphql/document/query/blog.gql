@@ -1,0 +1,12 @@
+{
+  blogs{
+    _id,
+    text,
+    title,
+    author{
+      frist_name,
+      last_name
+    }
+
+  }
+}

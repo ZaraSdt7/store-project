@@ -1,0 +1,6 @@
+mutation {
+  LikesProduct(productID: "63e5385078427bc0592788dc") {
+    data
+    statusCode
+  }
+}
