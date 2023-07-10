@@ -10,7 +10,7 @@ category:{type:GraphQLString}
 resolve:async(_,args)=>{
 const {category} = args;
 const findQuery = category ? {category} : {}
-return await CoursetModel.find(findQuery).populate([{path:'teacher'},{path:"category"},{path:"comments.user"},{path:"comments.answer.user"},{path:"like"},{path:"deslike"}])   
+return await CoursetModel.find(findQuery).populate([{path:'teacher'},{path:"category"},{path:"comments.user"},{path:"comments.answer.user"},{path:"like"},{path:"deslike"},{path:"bookmark"}])   
  
 }    
 }

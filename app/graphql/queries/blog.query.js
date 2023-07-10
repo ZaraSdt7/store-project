@@ -12,7 +12,7 @@ args:{
 resolve : async(_,args)=>{
     const {categories} = args;
     const findQuery = categories ? {categories} : {}
-    return await BlogModel.find(findQuery).populate([{path:'author'},{path:"categories"},{path:"comments.user"},{path:"comments.answer.user"},{path:"like"},{path:"deslike"}])
+    return await BlogModel.find(findQuery).populate([{path:'author'},{path:"categories"},{path:"comments.user"},{path:"comments.answer.user"},{path:"like"},{path:"deslike"},{path:"bookmark"}])
 }   
 }
 module.exports={

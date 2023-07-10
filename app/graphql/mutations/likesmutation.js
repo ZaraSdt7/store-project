@@ -24,8 +24,8 @@ const LikesProduct = {
      let message 
      if(!likeproduct){
          if(deslikeproduct) await ProductModel.updateOne({_id:productID},{$pull:{deslike:user}})
-        message="محصول لایک شد"
-    }else message="محصول دیسلایک شد"
+        message="محصول لایک شد" // like product
+    }else message="محصول دیسلایک شد" // cancel like product
     return {
         statusCode:httpStatus.CREATED,
         data:{

@@ -6,6 +6,7 @@ const { CourseResolver } = require("./queries/course.query")
 const { CommentBlogMutation, CommentCourseMutation,  CommentProductMutation} = require("./mutations/comment.mutation")
 const {LikesProduct,LikesBlogs,LikesCourse} = require("./mutations/likesmutation")
 const { DeLikesProduct, DesLikeCourse, DesLikeBlog} = require("./mutations/deslikesmutation")
+const { GetUserBookmarkBlogs,GetUserBookmarkCourse,GetUserBookmarkProduct} = require("./queries/user-profile")
 const RootQuery = new GraphQLObjectType({
 name: "RootQuery",
 fields:{
@@ -13,7 +14,10 @@ fields:{
     products:ProductResolver,
     categoriess: CategoryResolver,
     childcategories:ChildCategoryResolver,
-    courses:CourseResolver
+    courses:CourseResolver,
+    GetUserBookmarkBlogs,
+    GetUserBookmarkCourse,
+    GetUserBookmarkProduct
 }  
 })    
 const Mutation = new GraphQLObjectType({

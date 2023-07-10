@@ -10,7 +10,7 @@ args:{
 resolve:async(_,args)=>{
 const {category} = args;
 const findQuery = category ? {category} : {}    
-return await ProductModel.find(findQuery).populate([{path:'supplier'},{path:"category"},{path:"comments.user"},{path:"comments.answer.user"},{path:"like"},{path:"deslike"}])    
+return await ProductModel.find(findQuery).populate([{path:'supplier'},{path:"category"},{path:"comments.user"},{path:"comments.answer.user"},{path:"like"},{path:"deslike"},{path:"bookmark"}])    
 } 
 
 } 

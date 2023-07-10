@@ -77,9 +77,9 @@ const DesLikeBlog = {
         await BlogModel.updateOne({_id:blogID},updateQuery);
         let message;
         if(!deslikeblog){
-        if(likedblog) await BlogModel.updateOne({_id:blogID},{$pull:{like:user}});
-        message = "نپسندیدن بلاگ اانجام شد"    
-        }else message = " نپسندیدن بلاگ لغو شد"
+        if(likedblog) await BlogModel.updateOne({_id:blogID},{$pull:{like:user}}); 
+        message = "نپسندیدن بلاگ اانجام شد"    // deslike blog
+        }else message = " نپسندیدن بلاگ لغو شد" // cancel deslike blog
       return {
         statusCode:httpStatus.CREATED,
         data:{
