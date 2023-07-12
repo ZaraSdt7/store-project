@@ -12,7 +12,7 @@ type:new GraphQLList(BlogType),
 resolve :async(_,args,context)=>{
 const {req} = context;
 const user = await GraphAccessToken(req);
-const blogs = await BlogModel.findOne({bookmark:user}).populate([{path:'author'},{path:"categories"},{path:"comments.user"},{path:"comments.answer.user"},{path:"like"},{path:"deslike"},{path:"bookmark"}]);
+const blogs = await BlogModel.find({bookmark:user}).populate([{path:'author'},{path:"categories"},{path:"comments.user"},{path:"comments.answer.user"},{path:"like"},{path:"deslike"},{path:"bookmark"}]);
 return blogs
 }
 }
@@ -22,7 +22,7 @@ const GetUserBookmarkCourse = {
     resolve :async(_,args,context)=>{
     const {req} = context;
     const user = await GraphAccessToken(req);
-    const courses = await CoursetModel.findOne({bookmark:user}).populate([{path:'teacher'},{path:"category"},{path:"comments.user"},{path:"comments.answer.user"},{path:"like"},{path:"deslike"},{path:"bookmark"}]);
+    const courses = await CoursetModel.find({bookmark:user}).populate([{path:'teacher'},{path:"category"},{path:"comments.user"},{path:"comments.answer.user"},{path:"like"},{path:"deslike"},{path:"bookmark"}]);
     return courses
     }
     }
@@ -32,7 +32,7 @@ const GetUserBookmarkCourse = {
         resolve :async(_,args,context)=>{
         const {req} = context;
         const user = await GraphAccessToken(req);
-        const products = await ProductModel.findOne({bookmark:user}).populate([{path:'supplier'},{path:"category"},{path:"comments.user"},{path:"comments.answer.user"},{path:"like"},{path:"deslike"},{path:"bookmark"}]);
+        const products = await ProductModel.find({bookmark:user}).populate([{path:'supplier'},{path:"category"},{path:"comments.user"},{path:"comments.answer.user"},{path:"like"},{path:"deslike"},{path:"bookmark"}]);
         return products
         }
         }

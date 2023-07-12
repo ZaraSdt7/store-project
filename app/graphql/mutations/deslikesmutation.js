@@ -1,4 +1,4 @@
-const httpStatus = require("http-status");
+
 const { GraphAccessToken } = require("../../http/middleware/VerifyAccessToken");
 const { ProductModel } = require("../../http/models/product");
 const { CheckExistProductID, CheckExistCourseID, CheckExistBlogID } = require("../utils");
@@ -6,6 +6,7 @@ const { GraphQLString } = require("graphql");
 const { ResponsesType } = require("../typeDefs/public.type");
 const { CoursetModel } = require("../../http/models/course");
 const { BlogModel } = require("../../http/models/blog");
+const httpStatus = require("http-status");
 
 const DeLikesProduct = {
     type:ResponsesType,
@@ -27,7 +28,7 @@ const DeLikesProduct = {
         message="نپسندیدن محصول انجام شد"
     }else message="نپسندیدن محصول لغو شد" 
     return {
-        statusCode:httpStatus.CREATED,
+        statusCode:httpStatus.OK,
         data:{
             message
         }
@@ -54,7 +55,7 @@ const DesLikeCourse = {
         message = "نپسندیدن دوره اانجام شد"    
         }else message = " نپسندیدن دوره لغو شد"
       return {
-        statusCode:httpStatus.CREATED,
+        statusCode:httpStatus.OK,
         data:{
             message
         }
@@ -81,7 +82,7 @@ const DesLikeBlog = {
         message = "نپسندیدن بلاگ اانجام شد"    // deslike blog
         }else message = " نپسندیدن بلاگ لغو شد" // cancel deslike blog
       return {
-        statusCode:httpStatus.CREATED,
+        statusCode:httpStatus.OK,
         data:{
             message
         }

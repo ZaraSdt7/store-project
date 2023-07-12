@@ -7,6 +7,7 @@ const { CommentBlogMutation, CommentCourseMutation,  CommentProductMutation} = r
 const {LikesProduct,LikesBlogs,LikesCourse} = require("./mutations/likesmutation")
 const { DeLikesProduct, DesLikeCourse, DesLikeBlog} = require("./mutations/deslikesmutation")
 const { GetUserBookmarkBlogs,GetUserBookmarkCourse,GetUserBookmarkProduct} = require("./queries/user-profile")
+const {CourseBookmark,BlogBookmark,ProductBookmark} = require("./mutations/bookmark.mutation")
 const RootQuery = new GraphQLObjectType({
 name: "RootQuery",
 fields:{
@@ -31,7 +32,10 @@ fields:{
     LikesCourse,
     DeLikesProduct,
     DesLikeCourse,
-    DesLikeBlog
+    DesLikeBlog,
+    CourseBookmark,
+    BlogBookmark,
+    ProductBookmark
 
     
 }    
