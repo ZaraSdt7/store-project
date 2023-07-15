@@ -1,4 +1,16 @@
 const {default:mongoose}=require("mongoose");
+const ProductSchema = new mongoose.Schema({
+productID : {type:mongoose.Types.ObjectId , ref:"product"},
+count : {type: Number , default:1}    
+})
+const CourseSchema = new mongoose.Schema({
+productID : {type:mongoose.Types.ObjectId , ref:"course"},
+count : {type: Number , default:1}    
+})
+const BascketSchema = new mongoose.Schema({
+Course : {type: [CourseSchema],default:[]},
+Product : {type: [ProductSchema] , default:[]}
+})
 const UserSchema=new mongoose.Schema({
 frist_name:{type:String},
 last_name:{type:String},
@@ -16,7 +28,9 @@ brithday:{type:String},
 accesstoken:{type:String,default:''},
 RefreshToken:{type:String,default:''},
 Role:{type:String,default:"USER"},
-course:{type:[mongoose.Types.ObjectId],ref:"course",default:[]}    
+Course:{type:[mongoose.Types.ObjectId],ref:"course",default:[]},
+Product:{type:[mongoose.Types.ObjectId],ref:"product",default:[]},   
+bascket:{type:BascketSchema}     
 },
 {
     timestamps : true,

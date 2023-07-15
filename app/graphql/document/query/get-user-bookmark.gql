@@ -1,0 +1,9 @@
+{
+  GetUserBookmarkProduct{ //example
+    _id,
+    supplier{
+      frist_name,
+    }
+    short_text
+  }
+}
