@@ -8,6 +8,7 @@ const {LikesProduct,LikesBlogs,LikesCourse} = require("./mutations/likesmutation
 const { DeLikesProduct, DesLikeCourse, DesLikeBlog} = require("./mutations/deslikesmutation")
 const { GetUserBookmarkBlogs,GetUserBookmarkCourse,GetUserBookmarkProduct} = require("./queries/user-profile")
 const {CourseBookmark,BlogBookmark,ProductBookmark} = require("./mutations/bookmark.mutation")
+const { AddProductBascket,AddCourseBascket } = require("./mutations/bascket.mutation")
 const RootQuery = new GraphQLObjectType({
 name: "RootQuery",
 fields:{
@@ -35,8 +36,9 @@ fields:{
     DesLikeBlog,
     CourseBookmark,
     BlogBookmark,
-    ProductBookmark
-
+    ProductBookmark,
+    AddProductBascket,
+    AddCourseBascket
     
 }    
 })

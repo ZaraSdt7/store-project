@@ -1,0 +1,13 @@
+mutation{
+  AddProductBascket(productID:"63ea04765a519bd68e3a209a"){
+    statusCode,
+    data
+  }
+}
+
+mutation{
+  AddCourseBascket(courseID:"642beb7c032fdfbccca0945d"){
+    statusCode,
+    data
+  }
+}
