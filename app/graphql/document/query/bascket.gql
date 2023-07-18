@@ -11,3 +11,15 @@ mutation{
     data
   }
 }
+mutation{
+  RemoveProductBascket(productID:"63ea04765a519bd68e3a209a"){
+    statusCode,
+    data
+  }
+}
+mutation{
+  RemoveCourseBascket(courseID:"64a1a98e22b47dcd4eb7def7"){
+    statusCode,
+    data
+  }
+}

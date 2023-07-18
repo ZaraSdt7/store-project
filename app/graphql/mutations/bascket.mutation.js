@@ -155,5 +155,7 @@ async function FindCourseBascket(userID,courseID){
     }
     module.exports ={
         AddProductBascket,
-        AddCourseBascket
+        AddCourseBascket,
+        RemoveCourseBascket,
+        RemoveProductBascket
     }
