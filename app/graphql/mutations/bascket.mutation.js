@@ -65,6 +65,82 @@ return{
 }
 }
 }
+const RemoveProductBascket = {
+type: ResponsesType,
+args:{
+    productID :{type:GraphQLString}
+},
+resolve:async(_,args,context)=>{
+const {req} = context;
+const user = await GraphAccessToken(req);
+const {productID} = args;
+await CheckExistProductID(productID);
+const product = await FindProductBascket(user,productID);
+let message;
+if(!product) throw createHttpError.NotFound("محصول مورد نظر یافت نشد");
+if(product.count>1){
+await UserModel.updateOne({_id:user,"bascket.products.productID":productID},
+{
+   $inc:{
+    "bascket.products.$.count":-1
+   }
+
+})
+message = "یک عدد محصول از سبد خرید کم شد"
+}else{
+ await UserModel.updateOne({_id:user,"bascket.products.productID":productID},{
+    $pull:{
+        "bascket.products":{productID}
+    }
+ })
+ message="محصول از سبدخرید حذف شد"
+}
+return{
+    statusCode:httpStatus.OK,
+    data:{
+        message
+    }
+}
+}    
+}
+const RemoveCourseBascket = {
+    type: ResponsesType,
+    args:{
+        courseID :{type:GraphQLString}
+    },
+    resolve:async(_,args,context)=>{
+    const {req} = context;
+    const user = await GraphAccessToken(req);
+    const {courseID} = args;
+    await CheckExistCourseID(courseID);
+    const course = await FindCourseBascket(user,courseID);
+    let message;
+    if(!course) throw createHttpError.NotFound("دوره مورد نظر یافت نشد");
+    if(course.count>1){
+    await UserModel.updateOne({_id:user,"bascket.courses.courseID":courseID},
+    {
+       $inc:{
+        "bascket.courses.$.count":-1
+       }
+    
+    })
+    message = "یک عدد دوره از سبد خرید کم شد"
+    }else{
+     await UserModel.updateOne({_id:user,"bascket.courses.productID":courseID},{
+        $pull:{
+            "bascket.courses":{courseID}
+        }
+     })
+     message="دوره از سبدخرید حذف شد"
+    }
+    return{
+        statusCode:httpStatus.OK,
+        data:{
+            message
+        }
+    }
+    }    
+    }
 async function FindProductBascket(userID,productID){
 const Findresult = await UserModel.findOne({
     _id:userID,"bascket.products.productID":productID},{ "bascket.products.$":1})    
