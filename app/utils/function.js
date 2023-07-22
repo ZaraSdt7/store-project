@@ -5,8 +5,7 @@ const path=require("path");
 const fs=require("fs");
 const { ACCESS_TOKEN_SECRET_KEYS, ACCESS_REFRESH_TOKEN_KEY } = require("./constans");
 const RedisClient = require("./init_redis");
-const { string } = require("@hapi/joi");
-//const { token } = require("morgan");
+
 function PhoneNumberGenerator() {
   return Math.floor(Math.random() * 90000 + 10000);
 }
@@ -145,6 +144,70 @@ if (String(minute).length ==1) hour=`0${minute}`
 if (String(second).length ==1) hour=`0${second}`
 return (hour + ":" + minute + ":" + second)
 }
+// async function GetBascketOfUser(user,discount={}){
+  
+// const UserDetail = await UserModel.aggregate([
+// {
+//   $match :{_id:user} //when user login and get userID
+// },
+// {
+//   $project :{bascket:1} // info bascket
+// },
+// {
+//   $lookup:{
+//     from : "products", //collection product
+//     localField: "bascket.products.productID",
+//     foreignField: "_id",
+//     as: "productDetail"
+//   }
+// },
+// {
+//   $lookup:{
+//    from: "courses",
+//    localField: "bascket.courses.courseID",
+//    foreignField: "_id",
+//    as: "courseDetail"
+//   }
+// },
+// {
+//   $addFields:{
+//     "productDetail":{
+//       $function:{
+//         body:function(productDetail,products){
+//           return productDetail.map(function(product){
+//             const count = products.find(item=>item.productID.valueOf()==product._id.valueOf()).count;
+//             const totalprice = count * product.price;
+//             return{
+//               ...product,
+//               bascketcount:count,
+//               totalprice,
+//               finalprice:totalprice - ((product.discount/100)*totalprice)
+//             }
+//           })
+//         },
+//         args:["$productDetail","$bascket.products"],
+//         lang:"js"
+//       }
+//     },
+//     "courseDetail":{
+//       $function:{
+//         body:function(courseDetail){
+//           return courseDetail.map(function(course){
+//             return{
+//               ...course,
+//               finalprice:course.price - ((course.discount/100)*course.price)
+//             }
+//           })
+//         },
+//         args:["courseDetail"],
+//         lang:"js"
+//       }
+//     }
+//   }
+// }  
+// ]);
+// return CopyObject(UserDetail)  
+// }
 module.exports = {
   PhoneNumberGenerator,
   SignAccessToken,
@@ -156,5 +219,5 @@ module.exports = {
   SetFeture,
   DeleteInvitedPropertyObject,
   GetTime,
-  GetTimeOfCourse
+  GetTimeOfCourse,
 }
