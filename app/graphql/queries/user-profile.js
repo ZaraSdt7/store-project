@@ -8,6 +8,10 @@ const { ProductModel } = require("../../http/models/product");
 const { ProductType } = require("../typeDefs/product.type");
 const { AnyType } = require("../typeDefs/public.type");
 const { UserModel } = require("../../http/models/users");
+const { ObjectId } = require("mongodb");
+const { CopyObject } = require("../../utils/function");
+//const { GetBascketOfUser } = require("../../utils/function");
+
 
 
 const GetUserBookmarkBlogs = {
@@ -44,9 +48,9 @@ const GetUserBookmarkCourse = {
     resolve:async(_,args,context)=>{
      const {req} = context;
      const user = await GraphAccessToken(req);
-     const userdetail = await UserModel.aggregate([
+     const userdetail =await UserModel.aggregate([
         {
-          $match :{_id:user} //when user login and get userID
+          $match :{_id:ObjectId("63bf11382a1601a250314b7b")} //when user login and get userID
         },
         {
           $project :{bascket:1} // info bascket
@@ -73,11 +77,12 @@ const GetUserBookmarkCourse = {
               $function:{
                 body:function(productDetail,products){
                   return productDetail.map(function(product){
-                    const count = products.find(item=>item.productID.valueOf()==product._id.valueOf()).count;
+                    const count = products.find(item=>item.productID.valueOf() == product._id.valueOf()).count;
                     const totalprice = count * product.price;
                     return{
-                      ...product,
-                      bascketcount:count,
+                      _id:product._id,
+                      price:product.price,
+                      discout:product.discount,
                       totalprice,
                       finalprice:totalprice - ((product.discount/100)*totalprice)
                     }
@@ -92,22 +97,27 @@ const GetUserBookmarkCourse = {
                 body:function(courseDetail){
                   return courseDetail.map(function(course){
                     return{
-                      ...course,
+                      _id: course._id,
+                      title: course.title,
+                      price: course.price,
+                      discount: course.discount,
                       finalprice:course.price - ((course.discount/100)*course.price)
                     }
                   })
                 },
-                args:["courseDetail"],
+                args:["$courseDetail","$bascket.courses"],
                 lang:"js"
               }
-            }
+            },
+            
           }
         }  
         ]);
-        console.log(userdetail)
-     return (userdetail)    
-    }    
-    }    
+      
+        return CopyObject(userdetail)  
+     },
+     
+    }
     module.exports={
         GetUserBookmarkBlogs,
         GetUserBookmarkCourse,

@@ -11,7 +11,7 @@ const BascketSchema = new mongoose.Schema({
 courses : {type: [CourseSchema],default:[]},
 products : {type: [ProductSchema] , default:[]}
 })
-const UserSchema=new mongoose.Schema({
+const UserSchema=new mongoose.Schema({   
 frist_name:{type:String},
 last_name:{type:String},
 user_name:{type:String,lowercase:true},
