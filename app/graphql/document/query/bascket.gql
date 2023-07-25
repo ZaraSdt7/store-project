@@ -23,3 +23,60 @@ mutation{
     data
   }
 }
+query{
+  GetBascketUser
+}
+{
+  "data": {
+    "GetBascketUser": [
+      {
+        "_id": "63bf11382a1601a250314b7b",
+        "productDetail": [
+          {
+            "_id": "63ea04765a519bd68e3a209a",
+            "price": 800,
+            "discout": 55,
+            "totalprice": 8800,
+            "finalprice": 3960
+          }
+        ],
+        "courseDetail": [
+          {
+            "_id": "642beb7c032fdfbccca0945d",
+            "title": " عنوان اول",
+            "price": 7030,
+            "discount": 77,
+            "finalprice": 1616.8999999999996
+          },
+          {
+            "_id": "64312bbb152429cb4f17ee5d",
+            "title": "عنوان دوره دوم",
+            "price": 2500000,
+            "discount": 20,
+            "finalprice": 2000000
+          },
+          {
+            "_id": "643e752f148208a35ddf8bde",
+            "title": "برنامه نویسی",
+            "price": 7000,
+            "discount": 66,
+            "finalprice": 2380
+          }
+        ],
+        "payDetail": {
+          "courseAmount": 359.99999999999994,
+          "productAmount": 55308658.37,
+          "paymentAmount": 55309018.37,
+          "courseIDs": [
+            "63ea04765a519bd68e3a209a"
+          ],
+          "productIDs": [
+            "642beb7c032fdfbccca0945d",
+            "64312bbb152429cb4f17ee5d",
+            "643e752f148208a35ddf8bde"
+          ]
+        }
+      }
+    ]
+  }
+}
