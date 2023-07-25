@@ -113,21 +113,21 @@ const GetUserBookmarkCourse = {
               $function:{
                 body:function(courseDetail,productDetail,products){
                   const courseAmount = courseDetail.reduce(function(total,course){
-                    return total + (course.price - ((course.discount / 100)*course.price))
+                    return total + (course.price - (course.discount / 100)*course.price)
                   },0)
                   const productAmount = productDetail.reduce(function(total,product){
-                  const count = products.find(item=>item.productID.valueOf() == product._id.valueOf()).count;
+                  const count = products.reduce(item=>item.productID.valueOf() == product._id.valueOf()).count;
                   const totalprice = count * product.price;
-                  return total + (totalprice - ((product.discount / 100)+ totalprice))   
+                  return total + (totalprice - (product.discount / 100)+ totalprice)   
                   },0)
                   const courseIDs = courseDetail.map(course=>course._id.valueOf())
                   const productIDs = productDetail.map(product=>product._id.valueOf())
                   return{
-                    courseAmount:courseAmount,
-                    productAmount:productAmount,
+                    courseAmount,
+                    productAmount,
                     paymentAmount:courseAmount + productAmount,
-                    courseIDs:courseIDs,
-                    productIDs:productIDs
+                    courseIDs,
+                    productIDs
                   }
                 },
                 args:["$productDetail","$courseDetail","$bascket.products"],
