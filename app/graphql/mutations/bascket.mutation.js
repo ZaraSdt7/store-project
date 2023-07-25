@@ -113,6 +113,8 @@ const RemoveCourseBascket = {
     const user = await GraphAccessToken(req);
     const {courseID} = args;
     await CheckExistCourseID(courseID);
+    const Usercourse = await UserModel.findOne({_id:user,Courses:courseID});
+    if(Usercourse) throw createHttpError.BadRequest("شما این دوره قبلا خریداری کردید")
     const course = await FindCourseBascket(user,courseID);
     let message;
     if(!course) throw createHttpError.NotFound("دوره مورد نظر یافت نشد");
