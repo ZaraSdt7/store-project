@@ -9,7 +9,7 @@ const { ProductType } = require("../typeDefs/product.type");
 const { AnyType } = require("../typeDefs/public.type");
 const { UserModel } = require("../../http/models/users");
 const { ObjectId } = require("mongodb");
-const { CopyObject } = require("../../utils/function");
+const { CopyObject, GetBascketOfUser } = require("../../utils/function");
 //const { GetBascketOfUser } = require("../../utils/function");
 
 
@@ -48,106 +48,11 @@ const GetUserBookmarkCourse = {
     resolve:async(_,args,context)=>{
      const {req} = context;
      const user = await GraphAccessToken(req);
-     const userdetail =await UserModel.aggregate([
-        {
-          $match :{_id:ObjectId("63bf11382a1601a250314b7b")} //when user login and get userID
-        },
-        {
-          $project :{bascket:1} // info bascket
-        },
-        {
-          $lookup:{
-            from : "products", //collection product
-            localField: "bascket.products.productID",
-            foreignField: "_id",
-            as: "productDetail"
-          }
-        },
-        {
-          $lookup:{
-           from: "courses",
-           localField: "bascket.courses.courseID",
-           foreignField: "_id",
-           as: "courseDetail"
-          }
-        },
-        {
-          $addFields:{
-            "productDetail":{
-              $function:{
-                body:function(productDetail,products){
-                  return productDetail.map(function(product){
-                    const count = products.find(item=>item.productID.valueOf() == product._id.valueOf()).count;
-                    const totalprice = count * product.price;
-                    return{
-                      _id:product._id,
-                      price:product.price,
-                      discout:product.discount,
-                      totalprice,
-                      finalprice:totalprice - ((product.discount/100)*totalprice)
-                    }
-                  })
-                },
-                args:["$productDetail","$bascket.products"],
-                lang:"js"
-              }
-            },
-            "courseDetail":{
-              $function:{
-                body:function(courseDetail){
-                  return courseDetail.map(function(course){
-                    return{
-                      _id: course._id,
-                      title: course.title,
-                      price: course.price,
-                      discount: course.discount,
-                      finalprice:course.price - ((course.discount/100)*course.price)
-                    }
-                  })
-                },
-                args:["$courseDetail","$bascket.courses"],
-                lang:"js"
-              }
-            },
-            "payDetail":{
-              $function:{
-                body:function(courseDetail,productDetail,products){
-                  const courseAmount = courseDetail.reduce(function(total,course){
-                    return total + (course.price - (course.discount / 100)*course.price)
-                  },0)
-                  const productAmount = productDetail.reduce(function(total,product){
-                  const count = products.reduce(item=>item.productID.valueOf() == product._id.valueOf()).count;
-                  const totalprice = count * product.price;
-                  return total + (totalprice - (product.discount / 100)+ totalprice)   
-                  },0)
-                  const courseIDs = courseDetail.map(course=>course._id.valueOf())
-                  const productIDs = productDetail.map(product=>product._id.valueOf())
-                  return{
-                    courseAmount,
-                    productAmount,
-                    paymentAmount:courseAmount + productAmount,
-                    courseIDs,
-                    productIDs
-                  }
-                },
-                args:["$productDetail","$courseDetail","$bascket.products"],
-                lang:"js"
-              }
-            }
-            
-          },
-          
-        },{
-          $project:{
-            bascket:0
-          }
-        }  
-        ]);
-      
-        return CopyObject(userdetail)  
-     },
+     const userdetail = await GetBascketOfUser(user._id)
+     return userdetail
      
     }
+  }
     module.exports={
         GetUserBookmarkBlogs,
         GetUserBookmarkCourse,
