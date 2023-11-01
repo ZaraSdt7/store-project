@@ -3,6 +3,6 @@
  *  tags:
  *      -   name: Home page
  *          description: action admin
- *      -   name:Payment
+ *      -   name: Payment
  *          description: Role back access controll
  */
