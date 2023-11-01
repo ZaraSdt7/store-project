@@ -3,6 +3,6 @@
  *  tags:
  *      -   name: Home page
  *          description: action admin
- *      -   name: Bascket-Payment
+ *      -   name:Payment
  *          description: Role back access controll
  */
