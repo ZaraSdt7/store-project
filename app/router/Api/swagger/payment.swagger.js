@@ -1,6 +1,7 @@
 /**
  * @swagger
- *  /payment:
+ *  /payment: 
+ *      post:
  *          tags: [Payment]
  *          summary: Payment gatway
  *          responses:
