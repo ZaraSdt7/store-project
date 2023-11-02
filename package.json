@@ -31,6 +31,7 @@
     "mongose": "0.0.2-security",
     "morgan": "^1.10.0",
     "multer": "1.4.5-lts.1",
+    "node-fetch": "^3.3.2",
     "nodemon": "^3.0.1",
     "redis": "^4.3.1",
     "start": "^5.1.0",

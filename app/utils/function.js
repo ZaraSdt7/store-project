@@ -265,5 +265,7 @@ module.exports = {
   DeleteInvitedPropertyObject,
   GetTime,
   GetTimeOfCourse,
-  GetBascketOfUser
+  GetBascketOfUser,
+  CalculateDiscount,
+  InvoiceNumberGenarator
 }
