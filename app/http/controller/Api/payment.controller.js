@@ -10,7 +10,7 @@ class PaymentController extends Controller{
 async PaymentGatway(req,res,next){
 try {
 const user =req.user;
-if(user.bascket.courses.length == 0 && user.bascket.products.length == 0) throw createHttpError.BadRequest(".سبد شما خالی می باشد ")
+if(user.bascket.courses.length == 0 && user.bascket.products.length == 0) throw  new createHttpError.BadRequest(".سبد شما خالی می باشد ")
 const bascket = (await GetBascketOfUser(user._id))?.[0]
 if(!bascket?.payDetail?.paymentAmount) throw createHttpError.BadRequest("مشخصات پرداخت یافت نشد")
 const Zarinpal_requestUrl = "https://api.zarinpal.com/pg/v4/payment/request.json"   
@@ -24,20 +24,21 @@ const zarinpal_options ={
         email :user?.email || "example@example.com",
         mobile:user.mobile
     },
-    callback_url:`${process.env.BASE_URL}${process.env.APPLCATION_PORT}/verify`
+    callback_url:`${process.env.BASE_URL}${process.env.APPLICATION_PORT}/verify`
 }   
 const RequestUrl = await axios.post(Zarinpal_requestUrl,zarinpal_options).then(result=>result.data)
 const {authority, code} = RequestUrl.data; //destracture in data
 await PaymentModel.create({  //save data payment
     InvoiceNumber: InvoiceNumberGenarator(),
-    paymentDate:moment().format("jYYYY-MM-DD,HH:mm:ss.SSS"),
+    paymentDate: moment().format("jYYYY-MM-DD,HH:mm:ss.SSS"),
     amount,
     description,
     authority,
-    user:user_id,
+    user:user,
     verify:false,
-    bascket
+   
 })
+
 if(code == 100 && authority){
     return res.status(httpStatus.OK).json({
         statusCode:httpStatus.OK,
@@ -47,7 +48,7 @@ if(code == 100 && authority){
         }
     })
 
-} throw createHttpError.BadRequest(" پارامتر ارسال شده صحیح نمی باشد")
+} throw createHttpError.BadRequest("اتصال به درگاه پرداخت انجام نشد")
 } catch (error) {
     next(error)
 }    
