@@ -150,7 +150,7 @@ function CalculateDiscount(price,discount){
 return Number(price) - ((Number(discount)/100) * Number(price))  
 }
 function InvoiceNumberGenarator(){
-return moment().format("jYYYY-MM-DD,HH:MM:ss.SSS")  + String(process.hrtime()[1]).padStart(9,0) 
+return moment().format("YYYY-MM-DD,HH:MM:ss.SSS")  + String(process.hrtime()[1]).padStart(9,0) 
 }
 async function GetBascketOfUser(userID){
   
