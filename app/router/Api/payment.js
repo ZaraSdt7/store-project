@@ -3,7 +3,7 @@ const { VerifyAccessToken } = require("../../http/middleware/VerifyAccessToken")
 
 const router = require("express").Router();
 router.post("/payment",PaymentController.PaymentGatway);
-router.post("/verify",PaymentController)
+//router.post("/verify",PaymentController)
 module.exports={
     ApiPayment:router
 }
