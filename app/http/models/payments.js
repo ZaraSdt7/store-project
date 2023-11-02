@@ -3,7 +3,7 @@ const { default: mongoose } = require("mongoose")
 const PaymentSchema=new mongoose.Schema({
 InvoiceNumber:{type:String},
 authority:{type:String},
-paymentDate:{type:Number},
+paymentDate:{type:String},
 amount:{type:Number},
 description:{type:String , default : "Pay for products"},
 verify:{type:Boolean ,default:undefined},
