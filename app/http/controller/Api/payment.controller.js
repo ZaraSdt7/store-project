@@ -12,12 +12,12 @@ try {
 const user =req.user;
 if(user?.bascket && user.bascket.courses.length == 0 && user?.bascket && user.bascket.products.length == 0) throw new createHttpError.BadRequest(".سبد شما خالی می باشد ")
 const bascket = (await GetBascketOfUser(user))?.[0]
-console.log(bascket)
+//console.log(bascket)
 if(!bascket?.payDetail?.paymentAmount) throw new  createHttpError.BadRequest("مشخصات پرداخت یافت نشد")
 const Zarinpal_requestUrl = "https://api.zarinpal.com/pg/v4/payment/request.json"   
 const ZarinpalGatwayUrl = "https://www.zarinpal.com/pg/StartPay";
 const description = "پرداخت برای دوره یا محصولات" , amount = bascket?.payDetail?.paymentAmount;
-const zarinpal_options ={
+const zarinpal_options = {
     merchant_id:process.env.ZARINPAL_MERCHID,
     amount,
     description,
@@ -36,7 +36,7 @@ await PaymentModel.create({  //save data payment
     description,
     authority,
     user:user,
-    verify:false,
+    verify:true,
     bascket
 })
 if(code == 100 && authority){
@@ -49,7 +49,8 @@ if(code == 100 && authority){
         }
     })
 
-} throw createHttpError.BadRequest(" اتصال به درگاه پرداخت انجام نشد")
+} 
+throw createHttpError.BadRequest(" اتصال به درگاه پرداخت انجام نشد")
 } catch (error) {
     next(error)
 }    
