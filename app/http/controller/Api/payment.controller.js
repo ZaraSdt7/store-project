@@ -10,10 +10,10 @@ class PaymentController extends Controller{
 async PaymentGatway(req,res,next){
 try {
 const user =req.user;
-if(user?.bascket && user.bascket.courses.length == 0 && user?.bascket && user.bascket.products.length == 0) throw createHttpError.BadRequest(".سبد شما خالی می باشد ")
+if(user?.bascket && user.bascket.courses.length == 0 && user?.bascket && user.bascket.products.length == 0) throw new createHttpError.BadRequest(".سبد شما خالی می باشد ")
 const bascket = (await GetBascketOfUser(user))?.[0]
 console.log(bascket)
-if(!bascket?.payDetail?.paymentAmount) throw createHttpError.BadRequest("مشخصات پرداخت یافت نشد")
+if(!bascket?.payDetail?.paymentAmount) throw new  createHttpError.BadRequest("مشخصات پرداخت یافت نشد")
 const Zarinpal_requestUrl = "https://api.zarinpal.com/pg/v4/payment/request.json"   
 const ZarinpalGatwayUrl = "https://www.zarinpal.com/pg/StartPay";
 const description = "پرداخت برای دوره یا محصولات" , amount = bascket?.payDetail?.paymentAmount;
